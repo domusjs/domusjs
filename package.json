@@ -1,0 +1,23 @@
+{
+  "name": "domusjs",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "description": "Minimal architecture kit for scalable TypeScript backends using DDD, CQRS, and Clean Architecture.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vssalcedo/domusjs"
+  },
+  "author": "Sergio Salcedo",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -b packages/*",
+    "clean": "rm -rf packages/**/dist"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "tsup": "^7.2.0"
+  }
+}

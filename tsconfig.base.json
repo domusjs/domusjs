@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@domusjs/core": ["packages/core/src"],
+      "@domusjs/infrastructure": ["packages/infrastructure/src"],
+      "@domusjs/auth": ["packages/auth/src"],
+      "@domusjs/security": ["packages/security/src"],
+      "@domusjs/storage": ["packages/storage/src"],
+      "@domusjs/cron": ["packages/cron/src"],
+      "@domusjs/jobs": ["packages/jobs/src"]
+    }
+  }
+}
