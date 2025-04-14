@@ -23,6 +23,7 @@
   "dependencies": {
     "@types/amqplib": "0.10.6",
     "amqplib": "^0.10.6",
+    "dotenv": "^16.5.0",
     "reflect-metadata": "^0.2.2",
     "tsyringe": "^4.9.1"
   }
