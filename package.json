@@ -22,8 +22,10 @@
   },
   "dependencies": {
     "@types/amqplib": "0.10.6",
+    "@types/express": "^5.0.1",
     "amqplib": "^0.10.6",
     "dotenv": "^16.5.0",
+    "express": "^5.1.0",
     "reflect-metadata": "^0.2.2",
     "tsyringe": "^4.9.1"
   }
