@@ -17,7 +17,13 @@
     "clean": "rm -rf packages/**/dist"
   },
   "devDependencies": {
-    "typescript": "^5.3.3",
-    "tsup": "^7.2.0"
+    "tsup": "^7.2.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@types/amqplib": "0.10.6",
+    "amqplib": "^0.10.6",
+    "reflect-metadata": "^0.2.2",
+    "tsyringe": "^4.9.1"
   }
 }
