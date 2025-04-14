@@ -11,7 +11,7 @@
     "baseUrl": ".",
     "paths": {
       "@domusjs/core": ["packages/core/src"],
-      "@domusjs/infrastructure": ["packages/infrastructure"],
+      "@domusjs/infrastructure": ["packages/infrastructure/src"],
       "@domusjs/auth": ["packages/auth/src"],
       "@domusjs/security": ["packages/security/src"],
       "@domusjs/storage": ["packages/storage/src"],
