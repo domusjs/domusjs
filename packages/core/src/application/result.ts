@@ -1,16 +1,19 @@
+export type Result<T, E> = Ok<T> | Err<E>;
 
-export class Result<T> {
-  private constructor(
-    public readonly isSuccess: boolean,
-    public readonly value?: T,
-    public readonly error?: Error
-  ) {}
+export class Ok<T> {
+  readonly isOk = true;
+  readonly isErr = false;
 
-  public static ok<U>(value: U): Result<U> {
-    return new Result<U>(true, value);
-  }
-
-  public static fail<U>(error: Error): Result<U> {
-    return new Result<U>(false, undefined, error);
-  }
+  constructor(public readonly value: T) {}
 }
+
+export class Err<E> {
+  readonly isOk = false;
+  readonly isErr = true;
+
+  constructor(public readonly error: E) {}
+}
+
+// Helpers
+export const ok = <T>(value: T): Result<T, never> => new Ok(value);
+export const err = <E>(error: E): Result<never, E> => new Err(error);
