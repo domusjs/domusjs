@@ -10,6 +10,8 @@ import { InMemoryQueryBus } from '../bus/query-bus/in-memory-query-bus';
 import { InMemoryEventBus } from '../bus/event-bus/in-memory-event-bus';
 import { PinoLogger } from '../logger/pino-logger';
 
+import { registerAuthModule } from '@domusjs/auth/src/register';
+
 export interface DomusOverrides {
   commandBus?: CommandBus;
   queryBus?: QueryBus;
@@ -18,6 +20,8 @@ export interface DomusOverrides {
 }
 
 export function registerDomusCore(overrides: DomusOverrides = {}): void {
+
+
   // CommandBus
   container.register<CommandBus>('CommandBus', {
     useValue: overrides.commandBus ?? new InMemoryCommandBus()
@@ -37,4 +41,7 @@ export function registerDomusCore(overrides: DomusOverrides = {}): void {
   container.register<Logger>('Logger', {
     useValue: overrides.logger ?? new PinoLogger()
   });
+
+  // Modules registration
+  registerAuthModule();
 }

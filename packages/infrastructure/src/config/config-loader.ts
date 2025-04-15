@@ -1,6 +1,6 @@
 
 import './env';
-
+import jwt from 'jsonwebtoken';
 function getEnv(name: string, fallback?: string): string {
   const value = process.env[name] ?? fallback;
   if (value === undefined) {
@@ -16,7 +16,7 @@ export const domusConfig = {
   // JWT module
   jwt: {
     secret: getEnv('JWT_SECRET', 'changeme'),
-    expiresIn: getEnv('JWT_EXPIRES_IN', '1h'),
+    expiresIn: getEnv('JWT_EXPIRES_IN', '1h') as jwt.SignOptions['expiresIn'],
   },
 
   // RabbitMQ (event/command/query bus)
