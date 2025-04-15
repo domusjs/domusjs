@@ -8,7 +8,7 @@ import { Logger } from '@domusjs/core';
 import { InMemoryCommandBus } from '../bus/command-bus/in-memory-command-bus';
 import { InMemoryQueryBus } from '../bus/query-bus/in-memory-query-bus';
 import { InMemoryEventBus } from '../bus/event-bus/in-memory-event-bus';
-import { ConsoleLogger } from '../logger/console-logger';
+import { PinoLogger } from '../logger/pino-logger';
 
 export interface DomusOverrides {
   commandBus?: CommandBus;
@@ -35,6 +35,6 @@ export function registerDomusCore(overrides: DomusOverrides = {}): void {
 
   // Logger
   container.register<Logger>('Logger', {
-    useValue: overrides.logger ?? new ConsoleLogger()
+    useValue: overrides.logger ?? new PinoLogger()
   });
 }
