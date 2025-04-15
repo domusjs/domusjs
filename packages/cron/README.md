@@ -19,10 +19,8 @@ Use the Cron module when:
 |------------------------------------------|------------------|
 | You need to run logic every 5 minutes    | ✅ Yes           |
 | You want to clean expired sessions daily | ✅ Yes           |
-| A user triggers an action via API        | ❌ No (use CommandBus) |
-| You want to process a queue of tasks     | ❌ No (use Jobs module) |
 
----
+
 
 ## 🧱 Architecture
 
