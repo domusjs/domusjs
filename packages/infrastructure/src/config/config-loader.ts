@@ -28,6 +28,9 @@ export const domusConfig = {
   // Jobs module (BullMQ / Redis)
   redis: {
     url: getEnv('REDIS_URL', 'redis://localhost:6379'),
+    host: getEnv('REDIS_HOST', 'localhost'),
+    port: getEnv('REDIS_PORT', '6379'),
+    password: getEnv('REDIS_PASSWORD', ''),
   },
 
   // Storage (S3-compatible or local)
