@@ -14,11 +14,15 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -b packages/*",
-    "clean": "rm -rf packages/**/dist"
+    "clean": "rm -rf packages/**/dist",
+    "start": "ts-node src/index.ts",
+    "dev": "ts-node-dev --respawn src/index.ts"
   },
   "devDependencies": {
+    "@types/node": "^22.14.1",
+    "ts-node": "^10.9.2",
     "tsup": "^7.2.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "@types/amqplib": "0.10.6",

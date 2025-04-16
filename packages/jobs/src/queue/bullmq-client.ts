@@ -3,6 +3,7 @@ import { connection } from './bullmq.config';
 import { JobTask } from './job-task';
 
 export class BullMQClient {
+
     static createQueue(name: string): Queue {
         return new Queue(name, { connection });
     }

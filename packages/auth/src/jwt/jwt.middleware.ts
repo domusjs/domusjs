@@ -1,20 +1,25 @@
 import { RequestHandler } from 'express';
+import { container } from 'tsyringe';
 import { JWTService } from './jwt.service';
-import { UnauthorizedError } from '@domusjs/core/src/errors';
+import { UnauthorizedError, InternalServerError } from '@domusjs/core/src/errors';
 
 export const jwtAuthMiddleware: RequestHandler = (req, res, next) => {
 
-    const token = req.headers.authorization?.replace('Bearer ', '');
+  const authHeader = req.headers.authorization;
 
-    if (!token) {
-        return next(new UnauthorizedError('Missing or invalid Authorization header'));
-    }
+  if (!authHeader?.startsWith('Bearer ')) {
+    return next(new UnauthorizedError('Unauthorized'));
+  }
 
-    try {
-        const user = JWTService.verify(token);
-        (req as any).auth = user;
-        next();
-    } catch (err) {
-        next(new UnauthorizedError('Invalid or expired token'));
-    }
+  const token = authHeader.split(' ')[1];
+
+  const jwtService = container.resolve<JWTService>('JWTService');
+  
+  try {
+    const user = jwtService.verify(token);
+    (req as any).auth = user;
+    next();
+  } catch {
+    next(new UnauthorizedError('Unauthorized'));
+  }
 };

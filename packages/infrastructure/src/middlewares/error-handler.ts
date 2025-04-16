@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { BaseError } from '@domusjs/core/src/errors';
+import { container } from 'tsyringe';
+import { Logger } from '@domusjs/core/src/logger';
 
 /**
  * Global Express error handler.
@@ -7,11 +9,22 @@ import { BaseError } from '@domusjs/core/src/errors';
  * Logs and masks unknown errors with a generic message.
  */
 export function errorHandler(
-  err: unknown,
+  err: Error,
   req: Request,
   res: Response,
   next: NextFunction
 ) {
+
+  const logger = container.resolve<Logger>('Logger');
+  
+  logger.error('[ErrorHandler]', {
+    message: err.message,
+    stack: err.stack,
+    path: req.path,
+    method: req.method,
+  });
+
+  
   if (err instanceof BaseError) {
     return res.status(err.statusCode).json({
       error: {
@@ -20,9 +33,6 @@ export function errorHandler(
       },
     });
   }
-
-  // Unknown error
-  console.error('Unhandled error:', err);
 
   return res.status(500).json({
     error: {
