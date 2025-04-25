@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+
 import { Hasher } from './hashing.interface';
 
 export class BcryptHasher implements Hasher {

@@ -1,4 +1,3 @@
-
 import { RBACService } from './rbac.interface';
 import { AuthContext, Role } from './rbac.types';
 

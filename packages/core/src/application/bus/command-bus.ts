@@ -5,7 +5,6 @@ import { Command } from '../command';
  * Provides a consistent way to execute commands across different command handlers.
  */
 
-
 export interface CommandBus {
   /**
    * Dispatches a command.

@@ -1,8 +1,9 @@
-import { BullMQClient } from "../queue/bullmq-client";
-import { HelloWorldJob } from "./hello-world.job";
-import { SimpleAdderJob } from "./simple-adder.job";
-import { container } from "tsyringe";
-import { Logger } from "@domusjs/core/src/logger";
+import { container } from 'tsyringe';
+import { Logger } from '@domusjs/core/src/logger';
+
+import { BullMQClient } from '../queue/bullmq-client';
+import { HelloWorldJob } from './hello-world.job';
+import { SimpleAdderJob } from './simple-adder.job';
 
 // Initialize logger
 const logger = container.resolve<Logger>('Logger');
@@ -12,26 +13,25 @@ const queue = BullMQClient.createQueue('basic_queue');
 
 // Create worker
 const worker = BullMQClient.createWorker(queue.name, {
-    HelloWorldJob,
-    SimpleAdderJob
+  HelloWorldJob,
+  SimpleAdderJob,
 });
 
 // Enqueue jobs
 BullMQClient.enqueue(queue, new HelloWorldJob({ name: 'DomusJS' }));
 BullMQClient.enqueue(queue, new SimpleAdderJob({ a: 1000, b: 337 }));
 
-
 // Handle worker events
 worker.on('failed', (job, error) => {
-    logger.error('Job failed', {
-        jobId: job?.id,
-        error: error.message
-    });
+  logger.error('Job failed', {
+    jobId: job?.id,
+    error: error.message,
+  });
 });
 
 worker.on('completed', (job, result) => {
-    logger.info('Job completed', {
-        jobId: job?.id,
-        result
-    });
+  logger.info('Job completed', {
+    jobId: job?.id,
+    result,
+  });
 });

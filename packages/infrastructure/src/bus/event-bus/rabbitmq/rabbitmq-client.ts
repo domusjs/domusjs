@@ -1,7 +1,6 @@
 import amqp, { Connection, Channel } from 'amqplib';
 
 export class RabbitMQClient {
-    
   private connection?: Connection;
   private channel?: Channel;
 

@@ -1,4 +1,5 @@
 import { container } from 'tsyringe';
+
 import { RBACService } from './rbac.interface';
 import { BasicRBACService } from './rbac.service';
 

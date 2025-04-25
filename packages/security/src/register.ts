@@ -1,10 +1,10 @@
 import { container } from 'tsyringe';
+
 import { Hasher } from './hashing/hashing.interface';
 import { BcryptHasher } from './hashing/bcrypt-hasher';
 import { HashingService } from './hashing/hashing.service';
 
 export function registerSecurityModule() {
-  
   container.register<Hasher>('Hasher', {
     useClass: BcryptHasher,
   });

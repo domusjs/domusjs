@@ -1,8 +1,6 @@
-
 import { DomainEvent, EventBus, EventHandler } from '@domusjs/core';
 
 export class InMemoryEventBus implements EventBus {
-    
   private readonly handlers = new Map<string, EventHandler[]>();
 
   publish(events: DomainEvent[]): Promise<void> {

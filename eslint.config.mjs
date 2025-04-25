@@ -4,6 +4,8 @@ import pluginTs from '@typescript-eslint/eslint-plugin';
 import prettier from 'eslint-plugin-prettier';
 import importPlugin from 'eslint-plugin-import';
 import unusedImportsPlugin from 'eslint-plugin-unused-imports';
+import eslintPluginNode from 'eslint-plugin-node';
+
 
 export default [
   js.configs.recommended,
@@ -22,9 +24,11 @@ export default [
       prettier,
       import: importPlugin,
       'unused-imports': unusedImportsPlugin,
+      node: eslintPluginNode,
     },
     rules: {
       'no-unused-vars': 'off',
+      'no-undef': 'off',
       'prettier/prettier': 'error',
       'unused-imports/no-unused-imports': 'warn',
       'import/order': [
@@ -37,6 +41,6 @@ export default [
       '@typescript-eslint/no-unused-vars': [
         'warn',
       ],
-    },
+    }
   },
 ];

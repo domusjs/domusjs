@@ -1,4 +1,5 @@
 import { container } from 'tsyringe';
+
 import { AuthService } from './auth.service';
 import { JWTService } from './jwt/jwt.service';
 import { AuthProviderEntry } from './providers/auth-provider-entry.interface';
@@ -7,7 +8,6 @@ import { AuthProviderEntry } from './providers/auth-provider-entry.interface';
 const defaultProviders: AuthProviderEntry[] = [];
 
 export function registerAuthModule(providers: AuthProviderEntry[] = defaultProviders) {
-
   container.register<JWTService>('JWTService', { useClass: JWTService });
 
   container.register<AuthProviderEntry[]>('AuthProviders', {

@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 
 export class JWTService<AuthPayload extends object = any> {
-
   constructor(
     private readonly secret: string,
     private readonly expiresIn: jwt.SignOptions['expiresIn']

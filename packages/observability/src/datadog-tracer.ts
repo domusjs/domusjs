@@ -1,5 +1,6 @@
-import { Tracer } from './tracer.interface';
 import ddTrace from 'dd-trace';
+
+import { Tracer } from './tracer.interface';
 
 const tracer = ddTrace.init();
 

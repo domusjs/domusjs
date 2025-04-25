@@ -15,12 +15,10 @@ export class MiddlewareCommandBus implements CommandBus {
   }
 
   async dispatch<C extends Command>(command: C): Promise<void> {
-    const composed = this.middlewares
-      .reverse()
-      .reduce<() => Promise<void>>(
-        (next, middleware) => () => middleware(command, next),
-        () => this.base.dispatch(command)
-      );
+    const composed = this.middlewares.reverse().reduce<() => Promise<void>>(
+      (next, middleware) => () => middleware(command, next),
+      () => this.base.dispatch(command)
+    );
 
     await composed();
   }

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ZodSchema } from 'zod';
+
 import { fromZod } from './from-zod';
 
 export function validateParams<T>(schema: ZodSchema<T>) {

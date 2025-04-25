@@ -1,6 +1,7 @@
-import { Middleware } from './middleware-command-bus';
 import { container } from 'tsyringe';
 import { Logger } from '@domusjs/core';
+
+import { Middleware } from './middleware-command-bus';
 
 export const commandErrorLoggerMiddleware: Middleware = async (command, next) => {
   const logger = container.resolve<Logger>('Logger');
@@ -8,7 +9,9 @@ export const commandErrorLoggerMiddleware: Middleware = async (command, next) =>
   try {
     await next();
   } catch (error) {
-    logger.error(`[CommandBus] Error executing command "${command.type}": ${(error as Error).message}`);
+    logger.error(
+      `[CommandBus] Error executing command "${command.type}": ${(error as Error).message}`
+    );
     throw error;
   }
 };

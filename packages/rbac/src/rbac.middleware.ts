@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import { container } from 'tsyringe';
+
 import { RBACService } from './rbac.interface';
 import { AuthContext } from './rbac.types';
 

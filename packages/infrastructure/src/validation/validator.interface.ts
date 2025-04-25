@@ -1,4 +1,3 @@
-
 export interface Validator<T> {
-    validate(input: unknown): T;
+  validate(input: unknown): T;
 }

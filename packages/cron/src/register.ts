@@ -1,4 +1,5 @@
 import { container } from 'tsyringe';
+
 import { CronScheduler } from './cron.scheduler';
 
 const schedulerInstance = new CronScheduler();

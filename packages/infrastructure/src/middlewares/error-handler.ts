@@ -8,15 +8,9 @@ import { Logger } from '@domusjs/core/src/logger';
  * Converts known BaseErrors into clean HTTP responses.
  * Logs and masks unknown errors with a generic message.
  */
-export function errorHandler(
-  err: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-
+export function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
   const logger = container.resolve<Logger>('Logger');
-  
+
   logger.error('[ErrorHandler]', {
     message: err.message,
     stack: err.stack,
@@ -24,7 +18,6 @@ export function errorHandler(
     method: req.method,
   });
 
-  
   if (err instanceof BaseError) {
     return res.status(err.statusCode).json({
       error: {

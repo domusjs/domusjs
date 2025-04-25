@@ -1,4 +1,5 @@
 import { container } from 'tsyringe';
+
 import { Tracer } from './tracer.interface';
 import { DatadogTracer } from './datadog-tracer';
 import { NoopTracer } from './noop-tracer';

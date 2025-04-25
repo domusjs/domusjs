@@ -1,10 +1,10 @@
 import { RequestHandler } from 'express';
 import { container } from 'tsyringe';
+import { UnauthorizedError } from '@domusjs/core/src/errors';
+
 import { JWTService } from './jwt.service';
-import { UnauthorizedError, InternalServerError } from '@domusjs/core/src/errors';
 
 export const jwtAuthMiddleware: RequestHandler = (req, res, next) => {
-
   const authHeader = req.headers.authorization;
 
   if (!authHeader?.startsWith('Bearer ')) {
@@ -14,7 +14,7 @@ export const jwtAuthMiddleware: RequestHandler = (req, res, next) => {
   const token = authHeader.split(' ')[1];
 
   const jwtService = container.resolve<JWTService>('JWTService');
-  
+
   try {
     const user = jwtService.verify(token);
     (req as any).auth = user;

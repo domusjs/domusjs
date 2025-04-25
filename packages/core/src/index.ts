@@ -1,4 +1,3 @@
-
 // Application exports
 export * from './application/command';
 export * from './application/query';

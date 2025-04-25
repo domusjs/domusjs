@@ -1,4 +1,3 @@
-
 import './env';
 import jwt from 'jsonwebtoken';
 function getEnv(name: string, fallback?: string): string {

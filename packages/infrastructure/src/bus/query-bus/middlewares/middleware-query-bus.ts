@@ -6,7 +6,6 @@ export type QueryMiddleware<Q extends Query = Query, R = any> = (
 ) => Promise<R>;
 
 export class MiddlewareQueryBus implements QueryBus {
-    
   private middlewares: QueryMiddleware[] = [];
 
   constructor(private readonly base: QueryBus) {}
@@ -16,12 +15,10 @@ export class MiddlewareQueryBus implements QueryBus {
   }
 
   async ask<Q extends Query<R>, R = any>(query: Q): Promise<R> {
-    const composed = this.middlewares
-      .reverse()
-      .reduce<() => Promise<R>>(
-        (next, middleware) => () => middleware(query, next),
-        () => this.base.ask(query)
-      );
+    const composed = this.middlewares.reverse().reduce<() => Promise<R>>(
+      (next, middleware) => () => middleware(query, next),
+      () => this.base.ask(query)
+    );
 
     return composed();
   }

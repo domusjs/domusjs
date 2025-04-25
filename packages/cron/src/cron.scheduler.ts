@@ -6,7 +6,6 @@ type CronJob = {
   task: () => void;
 };
 
-
 export class CronScheduler {
   private jobs: CronJob[] = [];
 
