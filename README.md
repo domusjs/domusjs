@@ -2,7 +2,7 @@
 
 > A minimal, scalable framework for building real-world backend systems with TypeScript, CQRS, and Clean Architecture.
 
-DomusJS is a modular foundation for backend applications, designed with architecture in mind. It provides clean, decoupled patterns such as Command/Query buses, Domain Events, and Dependency Injection, while offering ready-to-use modules for authentication, file storage, job queues, and scheduled tasks.
+DomusJS is a modular framework for backend applications, designed with architecture in mind. It provides clean, decoupled patterns such as Command/Query buses, Domain Events, and Dependency Injection, while offering ready-to-use modules for authentication, job queues, observability and scheduled tasks.
 
 ---
 
@@ -13,7 +13,6 @@ DomusJS is a modular foundation for backend applications, designed with architec
 - 📤 **Command & Query Buses** – Decoupled use case execution
 - 📡 **Event Bus** – In-memory and RabbitMQ ready
 - 🛡️ **Authentication** – Pluggable strategies (Google, Password, etc.)
-- 🗄️ **Storage Module** – Upload to local or S3 seamlessly
 - ⏰ **Cron Jobs** – Declarative scheduling with DI
 - 🧵 **Job Queues** – Heavy or delayed processing via BullMQ
 - 🧪 **TypeScript-first** – Strict types, modular structure
@@ -25,15 +24,16 @@ DomusJS is a modular foundation for backend applications, designed with architec
 
 Each module is self-contained and installable:
 
-| Package                  | Description                      |
-|--------------------------|----------------------------------|
-| `@domusjs/core`          | Core interfaces and base contracts (Command, Query, Result, Handler, etc.) |
-| `@domusjs/infrastructure`| In-memory buses, logger, DI, middlewares |
-| `@domusjs/auth`          | Auth module (providers + JWT)    |
-| `@domusjs/security`      | Hashing and password validation  |
-| `@domusjs/storage`       | File storage abstraction         |
-| `@domusjs/cron`          | CronScheduler                    |
-| `@domusjs/jobs`          | Job queue handling (BullMQ etc.) |
+| Package                      | Description                                                     |
+|------------------------------|-----------------------------------------------------------------|
+| `@domusjs/core`              | Core interfaces and base contracts (Command, Query, Result, Handler, etc.) |
+| `@domusjs/infrastructure`    | In-memory buses, logger, DI, middlewares                        |
+| `@domusjs/auth`              | Auth module (pluggable providers + JWT support)                 |
+| `@domusjs/security`          | Hashing, password validation, secure value objects              |
+| `@domusjs/cron`              | Cron-based job scheduler with dependency injection support      |
+| `@domusjs/jobs`              | Background job queue handling (BullMQ support)                  |
+| `@domusjs/rbac`              | Role-Based Access Control utilities and Express middleware      |
+| `@domusjs/observability`     | Tracing and observability tools (OpenTelemetry / Datadog ready) |
 
 ---
 
@@ -51,16 +51,6 @@ Then structure your app with clear contexts, services and bus-driven execution.
 
 DomusJS is not a full-stack framework — it's a backend *architecture kit*.  
 You decide how to structure your domain logic. DomusJS provides the building blocks to scale your architecture, not magic.
-
----
-
-## 🛠 Example Use (simplified)
-
-```ts
-const commandBus = container.resolve<CommandBus>('CommandBus');
-
-await commandBus.dispatch(new CreateUserCommand('sergio@domus.dev'));
-```
 
 ---
 

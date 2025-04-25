@@ -5,7 +5,7 @@
   "workspaces": [
     "packages/*"
   ],
-  "description": "Minimal architecture kit for scalable TypeScript backends using DDD, CQRS, and Clean Architecture.",
+  "description": "A minimal, scalable framework for building real-world backend systems with TypeScript, CQRS, and Clean Architecture.",
   "repository": {
     "type": "git",
     "url": "https://github.com/vssalcedo/domusjs"
