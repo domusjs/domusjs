@@ -10,13 +10,14 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@domusjs/core": ["packages/core/src"],
-      "@domusjs/infrastructure": ["packages/infrastructure/src"],
       "@domusjs/auth": ["packages/auth/src"],
-      "@domusjs/security": ["packages/security/src"],
-      "@domusjs/storage": ["packages/storage/src"],
+      "@domusjs/core": ["packages/core/src"],
       "@domusjs/cron": ["packages/cron/src"],
-      "@domusjs/jobs": ["packages/jobs/src"]
+      "@domusjs/infrastructure": ["packages/infrastructure/src"],
+      "@domusjs/jobs": ["packages/jobs/src"],
+      "@domusjs/observability": ["packages/observability/src"],
+      "@domusjs/rbac": ["packages/rbac/src"],
+      "@domusjs/security": ["packages/security/src"]
     }
   }
 }
