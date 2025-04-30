@@ -13,4 +13,12 @@ export * from './domain/value-object';
 export * from './domain/entity';
 export * from './domain/repository';
 
+// Errors exports
+export * from './errors/base-error';
+export * from './errors/not-found-error';
+export * from './errors/unauthorized-error';
+export * from './errors/domain-error';
+export * from './errors/internal-server-error';
+export * from './errors/validation-error';
+
 export * from './logger';

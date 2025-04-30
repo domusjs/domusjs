@@ -1,7 +1,15 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true,
+    "declarationMap": true,
+    "composite": true
   },
-  "include": ["src/**/*", "index.ts", "logger", "config/bus"]
+  "include": ["src/**/*"],
+  "references": [
+    { "path": "../core" },
+    { "path": "../auth" },
+  ]
 }

@@ -13,10 +13,10 @@
   "author": "Sergio Salcedo",
   "license": "MIT",
   "scripts": {
-    "build": "tsc -b packages/*",
-    "clean": "rm -rf packages/**/dist",
-    "start": "ts-node src/index.ts",
-    "dev": "ts-node-dev --respawn src/index.ts",
+    "build": "tsc -b",
+    "clean": "pnpm -r run clean",
+    "dev": "pnpm -r run dev",
+    "lint": "pnpm -r run lint",
     "prepare": "lefthook install"
   },
   "devDependencies": {
@@ -33,6 +33,7 @@
     "lefthook": "^1.11.11",
     "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "tsup": "^7.2.0",
     "typescript": "^5.8.3"

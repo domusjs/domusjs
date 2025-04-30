@@ -1,5 +1,5 @@
 import { ZodSchema } from 'zod';
-import { ValidationError } from '@domusjs/core/src/errors';
+import { ValidationError } from '@domusjs/core';
 
 export function fromZod<T>(schema: ZodSchema<T>) {
   return {

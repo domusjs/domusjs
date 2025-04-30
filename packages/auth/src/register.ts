@@ -2,7 +2,7 @@ import { container } from 'tsyringe';
 
 import { AuthService } from './auth.service';
 import { JWTService } from './jwt/jwt.service';
-import { AuthProviderEntry } from './providers/auth-provider-entry.interface';
+import { AuthProviderEntry } from './';
 
 // No providers by default. We let devs register their own.
 const defaultProviders: AuthProviderEntry[] = [];

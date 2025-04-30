@@ -1,11 +1,11 @@
 import { Queue, Worker, Job } from 'bullmq';
 
-import { connection } from './bullmq.config';
+import { getBullMQConnection } from './bullmq.config';
 import { JobTask } from './job-task';
 
 export class BullMQClient {
   static createQueue(name: string): Queue {
-    return new Queue(name, { connection });
+    return new Queue(name, { connection: getBullMQConnection() });
   }
 
   static async enqueue<T extends JobTask>(queue: Queue, task: T): Promise<void> {
@@ -24,7 +24,7 @@ export class BullMQClient {
         const task = new JobClass(job.data);
         await task.execute();
       },
-      { connection }
+      { connection: getBullMQConnection() }
     );
   }
 }

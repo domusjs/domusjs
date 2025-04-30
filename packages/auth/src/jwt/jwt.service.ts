@@ -10,6 +10,7 @@ export class JWTService<AuthPayload extends object = any> {
     return jwt.sign(payload, this.secret, { expiresIn: this.expiresIn });
   }
 
+
   verify(token: string): AuthPayload {
     return jwt.verify(token, this.secret) as AuthPayload;
   }

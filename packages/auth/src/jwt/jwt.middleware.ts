@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import { container } from 'tsyringe';
-import { UnauthorizedError } from '@domusjs/core/src/errors';
+import { UnauthorizedError } from '@domusjs/core';
 
 import { JWTService } from './jwt.service';
 
@@ -11,7 +11,11 @@ export const jwtAuthMiddleware: RequestHandler = (req, res, next) => {
     return next(new UnauthorizedError('Unauthorized'));
   }
 
-  const token = authHeader.split(' ')[1];
+  const token = authHeader?.split(' ')[1];
+
+  if (!token) {
+    return next(new UnauthorizedError('Unauthorized'));
+  }
 
   const jwtService = container.resolve<JWTService>('JWTService');
 

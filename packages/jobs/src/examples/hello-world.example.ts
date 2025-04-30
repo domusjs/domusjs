@@ -1,5 +1,5 @@
 import { container } from 'tsyringe';
-import { Logger } from '@domusjs/core/src/logger';
+import { Logger } from '@domusjs/core';
 
 import { BullMQClient } from '../queue/bullmq-client';
 import { HelloWorldJob } from './hello-world.job';

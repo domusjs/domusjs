@@ -1,7 +1,5 @@
 import { container } from 'tsyringe';
-import { Command } from '@domusjs/core';
-import { CommandBus } from '@domusjs/core';
-import { CommandHandler } from '@domusjs/core';
+import { Command, CommandBus, CommandHandler } from '@domusjs/core';
 
 export class InMemoryCommandBus implements CommandBus {
   async dispatch<C extends Command>(command: C): Promise<void> {

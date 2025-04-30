@@ -1,7 +1,5 @@
 import { JWTService } from './jwt/jwt.service';
-import { AuthProviderEntry } from './providers/auth-provider-entry.interface';
-import { AuthProvider } from './providers/auth-provider.interface';
-import { AuthResultBase } from './providers/auth-result.interface';
+import { AuthProviderEntry, AuthProvider, AuthResultBase } from './';
 
 export class AuthService<TResult extends AuthResultBase = AuthResultBase> {
   private readonly strategies = new Map<string, AuthProvider<any, TResult>>();

@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { BaseError } from '@domusjs/core/src/errors';
 import { container } from 'tsyringe';
-import { Logger } from '@domusjs/core/src/logger';
+import { Logger, BaseError } from '@domusjs/core';
 
 /**
  * Global Express error handler.

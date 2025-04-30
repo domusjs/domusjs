@@ -3,10 +3,16 @@
   "version": "0.1.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "build": "tsc -b",
     "clean": "rm -rf dist"
   },
   "license": "MIT",
-  "dependencies": {}
+  "author": "Sergio Salcedo",
+  "dependencies": {
+    
+  }
 }
