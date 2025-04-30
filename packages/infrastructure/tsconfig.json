@@ -8,8 +8,5 @@
     "composite": true
   },
   "include": ["src/**/*"],
-  "references": [
-    { "path": "../core" },
-    { "path": "../auth" },
-  ]
+  "references": [{ "path": "../core" }, { "path": "../auth" }]
 }

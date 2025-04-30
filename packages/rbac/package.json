@@ -1,21 +1,21 @@
 {
-    "name": "@domusjs/rbac",
-    "version": "0.1.0",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "files": [
-        "dist"
-    ],
-    "scripts": {
-        "build": "tsc -b",
-        "clean": "rm -rf dist"
-    },
-    "dependencies": {
-        "tsyringe": "^4.8.0"
-    },
-    "devDependencies": {
-        "typescript": "^5.2.2",
-        "ts-node": "^10.9.1"
-    },
-    "author": "Sergio Salcedo"
+  "name": "@domusjs/rbac",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "tsyringe": "^4.8.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "ts-node": "^10.9.1"
+  },
+  "author": "Sergio Salcedo"
 }

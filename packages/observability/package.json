@@ -1,21 +1,21 @@
 {
-    "name": "@domusjs/observability",
-    "version": "0.1.0",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "files": [
-        "dist"
-    ],
-    "scripts": {
-        "build": "tsc -b",
-        "clean": "rm -rf dist"
-    },
-    "dependencies": {
-        "dd-trace": "^4.0.0"
-    },
-    "devDependencies": {
-        "ts-node": "^10.9.1",
-        "typescript": "^5.2.2"
-    },
-    "author": "Sergio Salcedo"
+  "name": "@domusjs/observability",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "dd-trace": "^4.0.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "author": "Sergio Salcedo"
 }
