@@ -21,4 +21,9 @@ export * from './errors/domain-error';
 export * from './errors/internal-server-error';
 export * from './errors/validation-error';
 
+// Value objects exports
+export * from './value-objects/unique-entity-id';
+export * from './value-objects/unique-id-provider.interface';
+export * from './value-objects/nanoid-id-provider';
+
 export * from './logger';

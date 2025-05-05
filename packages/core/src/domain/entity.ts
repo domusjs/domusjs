@@ -11,7 +11,7 @@
  * This base class ensures that all entities have a consistent structure and behavior.
  */
 
-import { UniqueEntityId } from "../value-objects/unique-entity-id";
+import { UniqueEntityId } from '../value-objects/unique-entity-id';
 
 export abstract class Entity<T> {
   protected readonly _id: UniqueEntityId;
