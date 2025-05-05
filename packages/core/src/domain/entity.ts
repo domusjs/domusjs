@@ -10,6 +10,17 @@
  * Entities are objects that are distinguished by their identity rather than their attributes.
  * This base class ensures that all entities have a consistent structure and behavior.
  */
+
 export abstract class Entity<T> {
-  protected constructor(public readonly props: T) {}
+  protected readonly _id: UniqueEntityId;
+  protected readonly props: T;
+
+  protected constructor(public readonly props: T, id?: UniqueEntityId) {
+      this._id = id ?? new UniqueEntityId();
+      this.props = props;
+  }
+
+  get id(): UniqueEntityId {
+      return this._id;
+  }
 }
