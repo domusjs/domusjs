@@ -4,24 +4,21 @@ import { UniqueIdProvider } from './unique-id-provider.interface';
 import { NanoIdProvider } from './nanoid-id-provider';
 
 export class UniqueEntityId {
-    private readonly _value: string;
+  private readonly _value: string;
 
-    constructor(
-        id?: string,
-        provider: UniqueIdProvider = new NanoIdProvider()
-    ) {
-        if (id) {
-            this._value = id;
-        } else {
-            this._value = provider.generate();
-        }
+  constructor(id?: string, provider: UniqueIdProvider = new NanoIdProvider()) {
+    if (id) {
+      this._value = id;
+    } else {
+      this._value = provider.generate();
     }
+  }
 
-    toString(): string {
-        return this._value;
-    }
+  toString(): string {
+    return this._value;
+  }
 
-    equals(id: UniqueEntityId): boolean {
-        return this._value === id.toString();
-    }
+  equals(id: UniqueEntityId): boolean {
+    return this._value === id.toString();
+  }
 }

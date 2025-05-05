@@ -1,4 +1,3 @@
-
 export interface UniqueIdProvider {
-    generate(): string;
+  generate(): string;
 }
