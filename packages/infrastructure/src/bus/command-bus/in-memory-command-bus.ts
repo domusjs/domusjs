@@ -1,5 +1,8 @@
 import { container } from 'tsyringe';
-import { Command, CommandBus, CommandHandler } from '@domusjs/core';
+
+import { CommandBus } from '../../../../core/src/application/bus/command-bus';
+import { CommandHandler } from '../../../../core/src/application/handler';
+import { Command } from '../../../../core/src/application/command';
 
 export class InMemoryCommandBus implements CommandBus {
   async dispatch<C extends Command, R = void>(command: C): Promise<R> {

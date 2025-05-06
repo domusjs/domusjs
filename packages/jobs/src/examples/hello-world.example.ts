@@ -22,14 +22,14 @@ BullMQClient.enqueue(queue, new HelloWorldJob({ name: 'DomusJS' }));
 BullMQClient.enqueue(queue, new SimpleAdderJob({ a: 1000, b: 337 }));
 
 // Handle worker events
-worker.on('failed', (job, error) => {
+worker.onFailed((job, error) => {
   logger.error('Job failed', {
     jobId: job?.id,
     error: error.message,
   });
 });
 
-worker.on('completed', (job, result) => {
+worker.onCompleted((job, result) => {
   logger.info('Job completed', {
     jobId: job?.id,
     result,

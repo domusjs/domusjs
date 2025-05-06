@@ -1,5 +1,5 @@
 import { container } from 'tsyringe';
-import { Logger } from '@domusjs/core';
+import { Logger } from '../../../../../core/src/logger';
 
 import { Middleware } from './middleware-command-bus';
 

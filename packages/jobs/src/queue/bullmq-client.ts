@@ -2,6 +2,8 @@ import { Queue, Worker, Job } from 'bullmq';
 
 import { getBullMQConnection } from './bullmq.config';
 import { JobTask } from './job-task';
+import { Worker as DomusWorker } from '../core/worker.interface';
+import { BullMQWorker } from './bullmq-worker';
 
 export class BullMQClient {
   static createQueue(name: string): Queue {
@@ -12,8 +14,11 @@ export class BullMQClient {
     await queue.add(task.name, task.toJSON());
   }
 
-  static createWorker(queueName: string, jobs: Record<string, new (data: any) => JobTask>): Worker {
-    return new Worker(
+  static createWorker(
+    queueName: string,
+    jobs: Record<string, new (data: any) => JobTask>
+  ): DomusWorker {
+    const worker = new Worker(
       queueName,
       async (job: Job) => {
         const JobClass = jobs[job.name];
@@ -26,5 +31,7 @@ export class BullMQClient {
       },
       { connection: getBullMQConnection() }
     );
+
+    return new BullMQWorker(worker);
   }
 }
