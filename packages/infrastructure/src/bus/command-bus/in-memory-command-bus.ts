@@ -2,7 +2,6 @@ import { container } from 'tsyringe';
 import { Command, CommandBus, CommandHandler } from '@domusjs/core';
 
 export class InMemoryCommandBus implements CommandBus {
-
   async dispatch<C extends Command, R = void>(command: C): Promise<R> {
     const handlerToken = `${command.type}Handler`;
 

@@ -1,25 +1,26 @@
 import { Command, CommandBus } from '@domusjs/core';
 
-export type Middleware<C extends Command = Command> = (
+export type Middleware<C extends Command = Command, R = void> = (
   command: C,
-  next: () => Promise<void>
-) => Promise<void>;
+  next: () => Promise<R>
+) => Promise<R>;
 
 export class MiddlewareCommandBus implements CommandBus {
-  private middlewares: Middleware[] = [];
+  private middlewares: Middleware<any, any>[] = [];
 
   constructor(private readonly base: CommandBus) {}
 
-  use(middleware: Middleware): void {
-    this.middlewares.push(middleware);
+  use<C extends Command = Command, R = void>(middleware: Middleware<C, R>): void {
+      this.middlewares.push(middleware);
   }
 
-  async dispatch<C extends Command>(command: C): Promise<void> {
-    const composed = this.middlewares.reverse().reduce<() => Promise<void>>(
-      (next, middleware) => () => middleware(command, next),
-      () => this.base.dispatch(command)
-    );
+  async dispatch<C extends Command, R = void>(command: C): Promise<R> {
+      const composed = [...this.middlewares].reverse().reduce<() => Promise<R>>(
+          (next, middleware) =>
+              () => (middleware as Middleware<C, R>)(command, next),
+          () => this.base.dispatch<C, R>(command)
+      );
 
-    await composed();
+      return composed();
   }
 }
