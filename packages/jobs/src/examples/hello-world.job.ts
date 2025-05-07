@@ -13,7 +13,7 @@ export class HelloWorldJob extends JobTask {
 
   async execute(): Promise<string> {
     const ret = `[HelloWorldJob] Hello ${this.data.name}!`;
-    
+
     return ret;
   }
 }

@@ -7,12 +7,11 @@ import { DomusWorker } from './domus-worker';
 import { DomusQueue } from './domus-queue';
 
 interface JobTaskConstructor<T extends JobTask = any> {
-  new(data: any): T;
+  new (data: any): T;
   jobName: string;
 }
 
 export class DomusJobClient {
-
   static createQueue(name: string): DomusQueue {
     const queue = new Queue(name, { connection: getDomusJobConnection() });
     return new DomusQueue(queue);
