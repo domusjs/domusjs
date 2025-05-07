@@ -1,13 +1,6 @@
-export abstract class JobTask<T = any> {
-  readonly name: string;
+export abstract class JobTask<R = any> {
+  static readonly jobName: string;
+  constructor(public readonly data: any) {}
 
-  constructor(readonly data: T) {
-    this.name = this.constructor.name;
-  }
-
-  abstract execute(): Promise<void>;
-
-  toJSON(): T {
-    return this.data;
-  }
+  abstract execute(): Promise<R>;
 }

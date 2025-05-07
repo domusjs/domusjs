@@ -1,3 +1,3 @@
-export * from './queue/bullmq-client';
-export { getBullMQConnection, configureBullMQConnection } from './queue/bullmq.config';
+export * from './queue/domus-client';
+export { getDomusJobConnection, setupDomusJobConnection } from './queue/domus.config';
 export * from './queue/job-task';

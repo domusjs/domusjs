@@ -11,7 +11,9 @@ export class HelloWorldJob extends JobTask {
     super(data);
   }
 
-  async execute(): Promise<void> {
-    console.log(`[HelloWorldJob] Hello ${this.data.name}!`);
+  async execute(): Promise<string> {
+    const ret = `[HelloWorldJob] Hello ${this.data.name}!`;
+    
+    return ret;
   }
 }

@@ -12,7 +12,11 @@ export class SimpleAdderJob extends JobTask {
     super(data);
   }
 
-  async execute(): Promise<void> {
-    console.log(`[SimpleAdderJob] ${this.data.a} + ${this.data.b} = ${this.data.a + this.data.b}`);
+  async execute(): Promise<string> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(`[SimpleAdderJob] ${this.data.a} + ${this.data.b} = ${this.data.a + this.data.b}`);
+      }, 1000);
+    });
   }
 }

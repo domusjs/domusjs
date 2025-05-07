@@ -13,13 +13,13 @@ let customConnection: Partial<RedisOptions> = {};
 /**
  * Allows user to override default Redis options
  */
-export function configureBullMQConnection(overrides: Partial<RedisOptions>) {
+export function setupDomusJobConnection(overrides: Partial<RedisOptions>) {
   customConnection = overrides;
 }
 
 /**
  * Returns the final connection options (default + overrides)
  */
-export function getBullMQConnection(): RedisOptions {
+export function getDomusJobConnection(): RedisOptions {
   return { ...defaultConnection, ...customConnection };
 }

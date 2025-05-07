@@ -1,36 +1,33 @@
-import { container } from 'tsyringe';
-import { Logger } from '@domusjs/core';
+import 'reflect-metadata';
 
-import { BullMQClient } from '../queue/bullmq-client';
+import { DomusJobClient } from '../queue/domus-client';
 import { HelloWorldJob } from './hello-world.job';
 import { SimpleAdderJob } from './simple-adder.job';
 
-// Initialize logger
-const logger = container.resolve<Logger>('Logger');
 
 // Create queue
-const queue = BullMQClient.createQueue('basic_queue');
+const queue = DomusJobClient.createQueue('basic_queue');
 
 // Create worker
-const worker = BullMQClient.createWorker(queue.name, {
+const worker = DomusJobClient.createWorker(queue, [
   HelloWorldJob,
   SimpleAdderJob,
-});
+]);
 
 // Enqueue jobs
-BullMQClient.enqueue(queue, new HelloWorldJob({ name: 'DomusJS' }));
-BullMQClient.enqueue(queue, new SimpleAdderJob({ a: 1000, b: 337 }));
+queue.add(new HelloWorldJob({ name: 'DomusJS' }));
+queue.add(new SimpleAdderJob({ a: 1000, b: 337 }));
 
 // Handle worker events
 worker.onFailed((job, error) => {
-  logger.error('Job failed', {
+  console.error('Job failed', {
     jobId: job?.id,
     error: error.message,
   });
 });
 
 worker.onCompleted((job, result) => {
-  logger.info('Job completed', {
+  console.info('Job completed', {
     jobId: job?.id,
     result,
   });
