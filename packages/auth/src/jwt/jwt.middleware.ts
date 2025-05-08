@@ -4,7 +4,7 @@ import { UnauthorizedError } from '@domusjs/core';
 
 import { JWTService } from './jwt.service';
 
-export const jwtAuthMiddleware: RequestHandler = (req, res, next) => {
+export const jwtAuthMiddleware = <TPayload extends object = any>(): RequestHandler => (req, _res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader?.startsWith('Bearer ')) {
@@ -17,13 +17,14 @@ export const jwtAuthMiddleware: RequestHandler = (req, res, next) => {
     return next(new UnauthorizedError('Unauthorized'));
   }
 
-  const jwtService = container.resolve<JWTService>('JWTService');
+  const jwtService = container.resolve<JWTService<TPayload>>('JWTService');
 
   try {
     const user = jwtService.verify(token);
-    (req as any).auth = user;
+    (req as unknown as Request & { auth: TPayload }).auth = user;
     next();
   } catch {
     next(new UnauthorizedError('Unauthorized'));
   }
 };
+
