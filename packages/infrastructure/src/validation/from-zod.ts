@@ -6,11 +6,7 @@ export function fromZod<T>(schema: ZodSchema<T>) {
     validate: (input: unknown): T => {
       const result = schema.safeParse(input);
       if (!result.success) {
-        throw new ValidationError(
-          'Validation error', 
-          'VALIDATION_ERROR',
-          result.error.flatten()
-        );
+        throw new ValidationError('Validation error', 'VALIDATION_ERROR', result.error.flatten());
       }
       return result.data;
     },
