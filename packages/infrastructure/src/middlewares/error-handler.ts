@@ -1,13 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
+import { ErrorRequestHandler } from 'express';
 import { container } from 'tsyringe';
-import { Logger, BaseError } from '@domusjs/core';
+import { Logger, BaseError, ValidationError } from '@domusjs/core';
 
-/**
- * Global Express error handler.
- * Converts known BaseErrors into clean HTTP responses.
- * Logs and masks unknown errors with a generic message.
- */
-export function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
+
+export const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
   const logger = container.resolve<Logger>('Logger');
 
   logger.error('[ErrorHandler]', {
@@ -17,19 +13,31 @@ export function errorHandler(err: Error, req: Request, res: Response, next: Next
     method: req.method,
   });
 
+  if (err instanceof ValidationError) {
+     res.status(400).json({
+      error: {
+        code: err.code,
+        message: err.message,
+        issues: err.details
+      }
+    });
+    return void 0;
+  }
+
   if (err instanceof BaseError) {
-    return res.status(err.statusCode).json({
+    res.status(err.statusCode).json({
       error: {
         code: err.code,
         message: err.message,
       },
     });
+    return void 0;
   }
 
-  return res.status(500).json({
+  res.status(500).json({
     error: {
       code: 'INTERNAL_SERVER_ERROR',
       message: 'Something went wrong',
     },
   });
-}
+};
