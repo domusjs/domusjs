@@ -9,11 +9,10 @@ import { AuthProviderEntry } from './';
 const defaultProviders: AuthProviderEntry[] = [];
 
 export function registerAuthModule(providers: AuthProviderEntry[] = defaultProviders) {
-
   // 1. Register the token secret and expiry
   container.register<string>('TokenSecret', { useValue: process.env.JWT_SECRET || 'default' });
   container.register<jwt.SignOptions['expiresIn']>('TokenExpiry', { useValue: '1h' });
-  
+
   container.register<JWTService>('JWTService', {
     useFactory: (c) =>
       new JWTService(

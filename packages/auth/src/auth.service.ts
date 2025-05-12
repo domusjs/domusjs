@@ -11,7 +11,10 @@ export class AuthService {
     }
   }
 
-  async login<TPayload, TResult extends AuthResultBase>(strategy: string, payload: TPayload): Promise<TResult> {
+  async login<TPayload, TResult extends AuthResultBase>(
+    strategy: string,
+    payload: TPayload
+  ): Promise<TResult> {
     const provider = this.strategies.get(strategy);
     if (!provider) throw new Error(`Auth strategy "${strategy}" not registered`);
     return await provider.login(payload);
