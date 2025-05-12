@@ -1,7 +1,5 @@
-
 import { Hasher } from './hashing.interface';
 import { injectable, inject } from 'tsyringe';
-
 @injectable()
 export class HashingService {
   constructor(@inject('Hasher') private readonly hasher: Hasher) {}

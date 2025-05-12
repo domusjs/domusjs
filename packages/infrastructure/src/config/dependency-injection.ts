@@ -1,7 +1,6 @@
 import { container } from 'tsyringe';
 import { CommandBus, QueryBus, EventBus } from '@domusjs/core';
 import { Logger } from '@domusjs/core';
-import { registerAuthModule } from '@domusjs/auth';
 
 import { InMemoryCommandBus } from '../bus/command-bus/in-memory-command-bus';
 import { InMemoryQueryBus } from '../bus/query-bus/in-memory-query-bus';
@@ -35,7 +34,4 @@ export function registerDomusCore(overrides: DomusOverrides = {}): void {
   container.register<Logger>('Logger', {
     useValue: overrides.logger ?? new PinoLogger(),
   });
-
-  // Modules registration
-  registerAuthModule();
 }

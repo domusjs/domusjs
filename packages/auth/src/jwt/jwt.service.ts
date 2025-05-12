@@ -1,9 +1,11 @@
 import jwt from 'jsonwebtoken';
+import { injectable, inject } from 'tsyringe';
 
+@injectable()
 export class JWTService<AuthPayload extends object = any> {
   constructor(
-    private readonly secret: string,
-    private readonly expiresIn: jwt.SignOptions['expiresIn']
+    @inject('TokenSecret') private readonly secret: string,
+    @inject('TokenExpiry') private readonly expiresIn: jwt.SignOptions['expiresIn']
   ) {}
 
   sign(payload: AuthPayload): string {
