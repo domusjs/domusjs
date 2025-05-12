@@ -9,9 +9,12 @@
   ],
   "scripts": {
     "build": "tsc -b",
-    "clean": "rm -rf dist && rm tsconfig.tsbuildinfo"
+    "clean": "rm -rf dist && rm -rf tsconfig.tsbuildinfo"
   },
   "license": "MIT",
   "author": "Sergio Salcedo",
-  "dependencies": {}
+  "dependencies": {},
+  "peerDependencies": {
+    "tsyringe": "^4.9.1"
+  }
 }

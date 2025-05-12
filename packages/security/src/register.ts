@@ -10,7 +10,7 @@ export function registerSecurityModule() {
   });
 
   // 🧩 Wrapper service (uses Hasher under the hood)
-  container.register<HashingService>('HasherService', {
+  container.register<HashingService>('HashingService', {
     useClass: HashingService,
   });
 }

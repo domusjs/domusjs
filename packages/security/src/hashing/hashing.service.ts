@@ -1,11 +1,10 @@
-import { container } from 'tsyringe';
 
 import { Hasher } from './hashing.interface';
+import { injectable, inject } from 'tsyringe';
 
+@injectable()
 export class HashingService {
-  constructor(private readonly hasher: Hasher) {
-    this.hasher = container.resolve<Hasher>('Hasher');
-  }
+  constructor(@inject('Hasher') private readonly hasher: Hasher) {}
 
   async hash(plainPassword: string): Promise<string> {
     return this.hasher.hash(plainPassword);
