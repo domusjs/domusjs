@@ -16,7 +16,6 @@ export class CronScheduler {
   startAll() {
     for (const job of this.jobs) {
       cron.schedule(job.schedule, () => {
-        console.log(`🕒 Executing cron job: ${job.name}`);
         job.task();
       });
     }
