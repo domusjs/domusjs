@@ -32,7 +32,7 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
     });
     return void 0;
   }
-  
+
   res.status(500).json({
     error: {
       code: 'INTERNAL_SERVER_ERROR',

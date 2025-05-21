@@ -16,11 +16,9 @@ It is ideal for **infrastructure-related concerns** such as:
 Use the Cron module when:
 
 | Scenario                                 | Should Use Cron? |
-|------------------------------------------|------------------|
+| ---------------------------------------- | ---------------- |
 | You need to run logic every 5 minutes    | ✅ Yes           |
 | You want to clean expired sessions daily | ✅ Yes           |
-
-
 
 ## 🧱 Architecture
 
@@ -29,7 +27,6 @@ This module integrates with the **dependency injection container** (`tsyringe`) 
 Each bounded context can register its own cron jobs using the shared `CronScheduler` service resolved from the container.
 
 > The scheduler itself is started only once, after all jobs have been registered.
-
 
 ## 🧠 Concepts
 
@@ -72,7 +69,7 @@ export function registerSessionsContextCronJobs() {
       // You can dispatch a command from here
       const commandBus = container.resolve<CommandBus>('CommandBus');
       await commandBus.dispatch(new CleanupExpiredSessionsCommand());
-    }
+    },
   });
 }
 ```
@@ -97,7 +94,6 @@ registerSessionsContextCronJobs(); // Register context-level cron jobs
 // ... Any other bounded context cron jobs can be registered here
 
 startSchedulers(); // Finally, start the scheduler
-
 ```
 
 ---
@@ -107,4 +103,3 @@ startSchedulers(); // Finally, start the scheduler
 - Keep jobs stateless and idempotent.
 - Avoid putting cron job definitions in `shared` or similar; let each bounded context register its own.
 - Schedule jobs only once, and always from the context they belong to.
-
