@@ -16,7 +16,6 @@ export * from './bus/event-bus/middlewares/event-error-logger.middleware';
 export * from './bus/event-bus/rabbitmq/rabbitmq-client';
 export * from './bus/event-bus/rabbitmq/rabbitmq-event-bus';
 
-export * from './config/config-loader';
 export * from './config/dependency-injection';
 
 export * from './logger/console-logger';

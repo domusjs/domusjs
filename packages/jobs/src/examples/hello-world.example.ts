@@ -4,11 +4,18 @@ import { DomusJobClient } from '../queue/domus-client';
 import { HelloWorldJob } from './hello-world.job';
 import { SimpleAdderJob } from './simple-adder.job';
 
+// Create a client
+const client = new DomusJobClient({
+  host: 'localhost',
+  port: 6379,
+  password: 'password'
+});
+
 // Create queue
-const queue = DomusJobClient.createQueue('basic_queue');
+const queue = client.createQueue('basic_queue');
 
 // Create worker
-const worker = DomusJobClient.createWorker(queue, [HelloWorldJob, SimpleAdderJob]);
+const worker = client.createWorker(queue, [HelloWorldJob, SimpleAdderJob]);
 
 // Enqueue jobs
 queue.add(new HelloWorldJob({ name: 'DomusJS' }));

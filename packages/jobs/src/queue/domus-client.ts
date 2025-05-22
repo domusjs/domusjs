@@ -1,10 +1,10 @@
 import { Queue, Worker, Job } from 'bullmq';
 
-import { getDomusJobConnection } from './domus.config';
 import { JobTask } from './job-task';
 import { Worker as IDomusWorker } from '../core/worker.interface';
 import { DomusWorker } from './domus-worker';
 import { DomusQueue } from './domus-queue';
+import { DomusJobClientConnection } from '../core/domus-job-client-connection.interface';
 
 interface JobTaskConstructor<T extends JobTask = any> {
   new (data: any): T;
@@ -12,12 +12,15 @@ interface JobTaskConstructor<T extends JobTask = any> {
 }
 
 export class DomusJobClient {
-  static createQueue(name: string): DomusQueue {
-    const queue = new Queue(name, { connection: getDomusJobConnection() });
+
+  constructor(private readonly connection: DomusJobClientConnection) {}
+
+  createQueue(name: string): DomusQueue {
+    const queue = new Queue(name, { connection: this.connection });
     return new DomusQueue(queue);
   }
 
-  static createWorker(queue: DomusQueue, jobs: JobTaskConstructor[]): IDomusWorker {
+  createWorker(queue: DomusQueue, jobs: JobTaskConstructor[]): IDomusWorker {
     const jobMap: Record<string, JobTaskConstructor> = {};
 
     for (const jobClass of jobs) {
@@ -39,7 +42,7 @@ export class DomusJobClient {
         const task = new JobClass(job.data);
         return await task.execute();
       },
-      { connection: getDomusJobConnection() }
+      { connection: this.connection }
     );
 
     return new DomusWorker(worker);
