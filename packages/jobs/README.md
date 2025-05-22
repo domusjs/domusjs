@@ -9,14 +9,12 @@ The `@domusjs/jobs` package offers a structured and scalable solution for managi
 - 🧪 Decoupled from infrastructure, perfect for testing
 - 🧩 Modular design: define jobs, workers, and queues separately
 
-
 ## 🚦 When to Use
 
 Use this module when:
 
 - You need to run asynchronous or long-running tasks off the main HTTP request cycle
 - You need job retries, failure handling, or queueing logic
-
 
 ## 🔨 Example
 
@@ -42,7 +40,6 @@ export class HelloWorldJob extends JobTask {
     return ret;
   }
 }
-
 ```
 
 ### 2. Setup the Job Queue, Worker and Worker events
@@ -76,8 +73,8 @@ worker.onCompleted((job, result) => {
     result,
   });
 });
-
 ```
+
 ---
 
 ## 🧰 Testing

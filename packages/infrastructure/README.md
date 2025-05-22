@@ -89,13 +89,11 @@ Make sure this is placed after all route handlers and middlewares, as the last a
 
 This middleware ensures consistent error formatting and full integration with your logger.
 
-
 ## 🧠 Design Philosophy
 
 - Separate infrastructure from domain and application
 - Easily swappable: change bus, logger, validation without touching domain logic
 - Type-safety and flexibility
-
 
 ## ✅ When to Use
 
@@ -105,8 +103,6 @@ Use this module if:
 - You want modular logging, validation and bus middleware
 - You prefer clean, decoupled infrastructure wiring
 - You're aiming to scale your application across contexts and services
-
-
 
 ## 📌 Tips
 

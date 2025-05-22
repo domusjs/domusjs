@@ -10,7 +10,6 @@ The `@domusjs/security` module provides cryptographic utilities for password has
 - 🔁 Pluggable hasher strategy
 - 🧪 Easy to mock for testing
 
-
 ---
 
 ## 🚀 Usage

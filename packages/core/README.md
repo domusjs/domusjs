@@ -10,7 +10,10 @@ DomusJS Core introduces `CommandHandler` and `QueryHandler` interfaces to decoup
 
 ```ts
 class CreateUserCommand {
-  constructor(public readonly username: string, public readonly email: string) {}
+  constructor(
+    public readonly username: string,
+    public readonly email: string
+  ) {}
 }
 
 class CreateUserHandler implements CommandHandler<CreateUserCommand> {
@@ -65,15 +68,13 @@ console.log(id.toString());
 DomusJS Core includes common domain-level exceptions that are structured and semantically meaningful:
 
 ```ts
-throw new NotFoundError("User not found");
-throw new ValidationError("Invalid data", "INVALID_DATA");
-throw new UnauthorizedError("Not allowed");
-throw new InternalServerError("Something went wrong", "UNEXPECTED_ERROR");
+throw new NotFoundError('User not found');
+throw new ValidationError('Invalid data', 'INVALID_DATA');
+throw new UnauthorizedError('Not allowed');
+throw new InternalServerError('Something went wrong', 'UNEXPECTED_ERROR');
 ```
 
 These errors can be caught at a global level to send appropriate HTTP status codes or user-facing messages.
-
-
 
 ## 🧠 When Should You Use It?
 
@@ -89,13 +90,13 @@ Use this module if you're:
 Here's a simplified command-handler interaction:
 
 ```ts
-const commandBus = container.resolve<CommandBus>("CommandBus");
+const commandBus = container.resolve<CommandBus>('CommandBus');
 
-await commandBus.dispatch(new CreateUserCommand("pepe", "test@domain.com"));
+await commandBus.dispatch(new CreateUserCommand('pepe', 'test@domain.com'));
 ```
 
 Handlers should be registered in a central dependency file:
 
 ```ts
-container.register("CreateUserHandler", { useClass: CreateUserHandler });
+container.register('CreateUserHandler', { useClass: CreateUserHandler });
 ```
