@@ -1,37 +1,21 @@
-# 🔐 DomusJS - Security Module
+# 🛡️ DomusJS - Security Module
 
-The `@domusjs/security` module provides secure utilities and abstractions for password handling. It includes hashing functionality, value objects, and a clear service-oriented design to enforce domain rules.
+The `@domusjs/security` module provides cryptographic utilities for password hashing and verification. It is designed to be easily integrated into any authentication system or security-sensitive feature in Backend applications.
 
 ---
 
 ## ✨ Features
 
-- 🔒 Bcrypt-based password hashing
-- 🧱 `PlainPassword` value object for validation at domain level
-- 🧩 Extensible `Hasher` interface for future support (e.g. Argon2)
-- ✅ TSyringe DI support (dependency injection)
+- 🔒 Secure password hashing using [bcryptjs](https://www.npmjs.com/package/bcryptjs)
+- 🔁 Pluggable hasher strategy
+- 🧪 Easy to mock for testing
 
----
-
-## 📦 Structure
-
-```
-security/
-├── hashing/
-│   ├── hashing.interface.ts      # Hasher interface
-│   ├── bcrypt-hasher.ts          # Concrete implementation using bcrypt
-│   └── hashing.service.ts        # Main service using Hasher
-├── value-objects/
-│   └── plain-password.ts         # Enforces password rules (min length, format, etc.)
-├── register.ts                   # Module registration in DI
-└── README.md
-```
 
 ---
 
 ## 🚀 Usage
 
-### 1. Register the module
+### 1. Register the Security Module
 
 ```ts
 import { registerSecurityModule } from '@domusjs/security';
@@ -39,33 +23,28 @@ import { registerSecurityModule } from '@domusjs/security';
 registerSecurityModule();
 ```
 
-### 2. Use PlainPassword + HashingService
+### 2. Use the Hashing Service
 
 ```ts
-const password = PlainPassword.create('MySecurePass1!');
-const hasher = container.resolve(HashingService);
+import { container } from 'tsyringe';
+import { HashingService } from '@domusjs/security';
 
-const hashed = await hasher.hash(password);
-const match = await hasher.compare('MySecurePass1!', hashed);
+const hashingService = container.resolve<HashingService>('HashingService');
+
+const hashedPassword = await hashingService.hash('myPassword123');
+
+const isValid = await hashingService.compare('myPassword123', hashedPassword); // Returns true
 ```
 
 ---
 
-## 📌 Value Object: PlainPassword
+## 🧪 Testing
+
+You can mock the `HashingService` in unit tests by providing a fake implementation:
 
 ```ts
-const password = PlainPassword.create('Secret123', (val) =>
-  val.length >= 8 && /[A-Z]/.test(val) && /\d/.test(val)
-);
+const mockHasher = {
+  hash: vi.fn().mockResolvedValue('hashed'),
+  compare: vi.fn().mockResolvedValue(true),
+};
 ```
-
-This guarantees validation at domain level, and makes your system more robust and expressive.
-
----
-
-## 🧠 Design Philosophy
-
-- Validation lives in the domain (`PlainPassword`)
-- Hashing logic is abstracted and replaceable
-- Service layer orchestrates domain & infrastructure
-

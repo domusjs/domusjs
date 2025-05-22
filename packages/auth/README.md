@@ -10,9 +10,6 @@ The `@domusjs/auth` module provides a flexible authentication layer. It is desig
 - 🧩 Decoupled design to support any domain-specific user model
 - ✅ Built-in interfaces and services to speed up integration
 
-
-
-
 ## 🚀 Usage
 
 ### 1. Define your own `AuthResult`
@@ -32,20 +29,17 @@ export interface UserAuthResult {
 import { AuthStrategy } from '@domusjs/auth';
 
 interface PasswordAuthPayload {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 }
 
 interface PasswordAuthResult {
-    userId: string;
-    email: string;
+  userId: string;
+  email: string;
 }
 
-
 export class PasswordAuthStrategy implements AuthStrategy<PasswordAuthPayload, PasswordAuthResult> {
-
   async login(payload: PasswordAuthPayload): Promise<PasswordAuthResult> {
-
     // Validate user, check password, etc.
     return { userId: 'abc123', email: payload.email };
   }
@@ -55,25 +49,32 @@ export class PasswordAuthStrategy implements AuthStrategy<PasswordAuthPayload, P
 ### 3. Register Auth Module with custom strategies
 
 ```ts
-import { registerAuthModule, AuthService } from "@domusjs/auth";
+import { registerAuthModule, AuthService } from '@domusjs/auth';
 
 const jwtOptions = {
-    secret: 'my_jwt_secret',
-    expiresIn: '1h'
+  secret: 'my_jwt_secret',
+  expiresIn: '1h',
 };
 
-registerAuthModule([{
-    strategy: PasswordAuthStrategy,
-    instance: new PasswordAuthStrategy()
-}], jwtOptions);
+registerAuthModule(
+  [
+    {
+      strategy: PasswordAuthStrategy,
+      instance: new PasswordAuthStrategy(),
+    },
+  ],
+  jwtOptions
+);
 ```
 
 ### 4. Use AuthService
 
 ```ts
-
 const authService = container.resolve('AuthService');
-const authResult = await authService.loginWith(PasswordAuthStrategy, { email: 'me@test.com', password: '1234' });
+const authResult = await authService.loginWith(PasswordAuthStrategy, {
+  email: 'me@test.com',
+  password: '1234',
+});
 ```
 
 ---
