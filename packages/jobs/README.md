@@ -50,11 +50,18 @@ import 'reflect-metadata';
 import { DomusJobClient } from '@domusjs/jobs';
 import { HelloWorldJob } from './hello-world.job';
 
+// Create a client
+const client = new DomusJobClient({
+  host: 'localhost',
+  port: 6379,
+  password: 'password',
+});
+
 // Create queue
-const queue = DomusJobClient.createQueue('basic_queue');
+const queue = client.createQueue('basic_queue');
 
 // Add a worker to the queue
-const worker = DomusJobClient.createWorker(queue, [HelloWorldJob]);
+const worker = client.createWorker(queue, [HelloWorldJob]);
 
 // Enqueue jobs
 queue.add(new HelloWorldJob({ name: 'DomusJS' }));

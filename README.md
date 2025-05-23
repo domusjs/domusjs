@@ -1,43 +1,47 @@
 # 🏛 DomusJS
 
-> A minimal, scalable framework for building real-world backend systems with TypeScript, CQRS, and Clean Architecture.
+> A scalable, TypeScript-first framework for real-world backend applications using Clean Architecture, CQRS, and modular design.
 
-DomusJS is a modular framework for backend applications, designed with architecture in mind. It provides clean, decoupled patterns such as Command/Query buses, Domain Events, and Dependency Injection, while offering ready-to-use modules for authentication, job queues, observability and scheduled tasks.
+
+DomusJS provides a lightweight but powerful foundation for backend systems, focusing on **clarity**, **extensibility**, and **separation of concerns**. It encourages you to design your system with proper boundaries while offering plug-and-play modules for common needs like authentication, job queues, cron jobs, etc.
+
 
 ---
 
 ## ✨ Features
 
-- 🧱 **Domain-Driven Design** – Entities, Value Objects, Aggregates, Domain Events
-- ⚙️ **Clean Architecture** – Clear separation of concerns
-- 📤 **Command & Query Buses** – Decoupled use case execution
-- 📡 **Event Bus** – In-memory and RabbitMQ ready
-- 🛡️ **Authentication** – Pluggable strategies (Google, Password, etc.)
-- ⏰ **Cron Jobs** – Declarative scheduling with DI
-- 🧵 **Job Queues** – Heavy or delayed processing via BullMQ
-- 🧪 **TypeScript-first** – Strict types, modular structure
-- 🧩 **Fully Extensible** – Bring your own implementation, customize everything
+- 🧱 **Domain-Driven Design** — Entities, Value Objects, Domain Events
+- 🧠 **Clean Architecture** — Independent layers and inversion of control
+- 📤 **CQRS Buses** — Command/Query buses with middleware support
+- 📡 **Event Bus** — In-memory or RabbitMQ integration
+- 🛡️ **Authentication** — Strategy-based (e.g. Google, Password)
+- ⏰ **Cron Jobs** — Declarative scheduling with full DI support
+- 🧵 **Job Queues** — Asynchronous job handling powered by BullMQ
+- 🧪 **TypeScript-First** — Full typings and modular organization
+- 🧩 **Fully Extensible** — Bring your own implementations, override anything
 
 ---
 
 ## 📦 Packages
 
-Each module is self-contained and installable:
+DomusJS is modular. Pick what you need:
 
-| Package                      | Description                                                     |
-|------------------------------|-----------------------------------------------------------------|
-| `@domusjs/core`              | Core interfaces and base contracts (Command, Query, Result, Handler, etc.) |
-| `@domusjs/infrastructure`    | In-memory buses, logger, DI, middlewares                        |
-| `@domusjs/auth`              | Auth module (pluggable providers + JWT support)                 |
-| `@domusjs/security`          | Hashing, password validation, secure value objects              |
-| `@domusjs/cron`              | Cron-based job scheduler with dependency injection support      |
-| `@domusjs/jobs`              | Background job queue handling (BullMQ support)                  |
-| `@domusjs/rbac`              | Role-Based Access Control utilities and Express middleware      |
-| `@domusjs/observability`     | Tracing and observability tools (OpenTelemetry / Datadog ready) |
+| Package                   | Description                                                   |
+|---------------------------|---------------------------------------------------------------|
+| `@domusjs/core`           | Core contracts: Command, Query, Result, Entity, Value Object |
+| `@domusjs/infrastructure` | In-memory buses, logger, dependency injection, middlewares   |
+| `@domusjs/auth`           | Auth system with strategy registration + JWT support         |
+| `@domusjs/security`       | Hashing, password policies, validation helpers               |
+| `@domusjs/cron`           | DI-compatible cron scheduler for periodic tasks              |
+| `@domusjs/jobs`           | Job queue management using BullMQ                            |
+| `@domusjs/rbac`           | Role-based access control utilities                          |
+| `@domusjs/observability`  | Distributed tracing (OpenTelemetry, Datadog ready)           |
 
 ---
 
 ## 🚀 Getting Started
+
+Install the basic packages:
 
 ```bash
 npm install @domusjs/core @domusjs/infrastructure
@@ -51,6 +55,38 @@ Then structure your app with clear contexts, services and bus-driven execution.
 
 DomusJS is not a full-stack framework — it's a backend *architecture kit*.  
 You decide how to structure your domain logic. DomusJS provides the building blocks to scale your architecture, not magic.
+
+---
+
+### 🆚 DomusJS vs NestJS
+
+| Aspect             | **DomusJS**                                                             | **NestJS**                                                       |
+|--------------------|-------------------------------------------------------------------------|------------------------------------------------------------------|
+| **Philosophy**     | Architectural toolkit: minimal, modular, explicit                      | Full-stack framework: batteries-included                         |
+| **Abstraction**    | Manual wiring and DI encourages ownership of design                    | Heavy use of decorators and metadata abstraction                 |
+| **Complexity**     | Low baseline complexity, flexible project structure                    | Steeper learning curve with opinionated defaults                 |
+| **Modularity**     | Decoupled, framework-agnostic modules (auth, jobs, etc.)               | Modular, but tightly coupled to the Nest ecosystem               |
+| **Execution**      | Explicit use of Command/Query/Event Buses                              | Mostly hidden behind controller/service layers                   |
+| **Use Cases**      | Perfect for microservices, backend APIs, job workers, headless apps    | Great for teams needing batteries-included structure             |
+
+---
+
+### 🧩 When to Use DomusJS
+
+Use **DomusJS** if:
+
+- You want full control over your application's architecture.
+- You prefer **explicit boundaries** and **low coupling** between application layers.
+- You are building **modular backend services**, **microservices**, or **event-driven systems**.
+- You want to scale a backend codebase while avoiding framework lock-in.
+- You need a **lean foundation** with **plug-and-play modules** for jobs, auth, RBAC, etc.
+
+Use **NestJS** if:
+
+- You want a comprehensive, **out-of-the-box solution** with controllers, interceptors, guards, etc.
+- You're working on a **large team** that benefits from heavy conventions and tooling.
+- You value a **batteries-included** ecosystem (CLI, Swagger, GraphQL, etc.).
+- You prefer heavy use of **decorators and dependency injection magic**.
 
 ---
 

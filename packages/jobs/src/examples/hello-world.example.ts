@@ -8,7 +8,7 @@ import { SimpleAdderJob } from './simple-adder.job';
 const client = new DomusJobClient({
   host: 'localhost',
   port: 6379,
-  password: 'password'
+  password: 'password',
 });
 
 // Create queue

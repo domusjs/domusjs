@@ -12,7 +12,6 @@ interface JobTaskConstructor<T extends JobTask = any> {
 }
 
 export class DomusJobClient {
-
   constructor(private readonly connection: DomusJobClientConnection) {}
 
   createQueue(name: string): DomusQueue {
