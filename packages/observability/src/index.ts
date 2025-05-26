@@ -1,4 +1,3 @@
-
 /*
 export * from './datadog-tracer';
 export * from './register';
@@ -12,3 +11,4 @@ export * from './middleware/tracing.middleware';
 export * from './setup';
 export * from './config/otel.config';
 export * from './decorators/traceable';
+export * from './logging/OpenTelemetryLogger';
