@@ -17,6 +17,8 @@ export class MiddlewareEventBus implements EventBus {
     this.middlewares.push(middleware);
   }
 
+  register<E extends DomainEvent>(eventClass: { TYPE: string }, handler: EventHandler<E>): void {}
+
   async publish(events: DomainEvent[]): Promise<void> {
     for (const event of events) {
       const handlers = this.handlerRegistry.get(event.type) || [];

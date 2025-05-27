@@ -20,9 +20,9 @@ export class RabbitMQEventBus implements EventBus {
     }
   }
 
-  register<E extends DomainEvent>(eventType: string, handler: EventHandler<E>): void {
-    const current = this.handlers.get(eventType) ?? [];
-    this.handlers.set(eventType, [...current, handler]);
+  register<E extends DomainEvent>(eventClass: { TYPE: string }, handler: EventHandler<E>): void {
+    const current = this.handlers.get(eventClass.TYPE) ?? [];
+    this.handlers.set(eventClass.TYPE, [...current, handler]);
   }
 
   async subscribe(): Promise<void> {
