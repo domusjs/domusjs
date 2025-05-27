@@ -1,4 +1,5 @@
 import { Command } from '../command';
+import { CommandHandler } from '../handler';
 
 /**
  * CommandBus is responsible for dispatching commands to their corresponding handlers.
@@ -14,4 +15,11 @@ export interface CommandBus {
    * @param command - The command to dispatch
    */
   dispatch<T extends Command, R = void>(command: T): Promise<R>;
+
+  /**
+   * Registers a command handler.
+   * @param commandClass - The command class to register
+   * @param handlerClass - The handler class to register
+   */
+  register<C extends Command, R>(commandClass: { TYPE: string }, handlerClass: new (...args: any[]) => CommandHandler<C, R>): void;
 }

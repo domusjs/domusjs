@@ -1,4 +1,4 @@
-import { Query, QueryBus } from '@domusjs/core';
+import { Query, QueryBus, QueryHandler } from '@domusjs/core';
 
 export type QueryMiddleware<Q extends Query = Query, R = any> = (
   query: Q,
@@ -13,6 +13,8 @@ export class MiddlewareQueryBus implements QueryBus {
   use(middleware: QueryMiddleware): void {
     this.middlewares.push(middleware);
   }
+
+  register<Q extends Query, R = any>(queryClass: { TYPE: string }, handlerClass: new (...args: any[]) => QueryHandler<Q, R>): void {}
 
   async ask<Q extends Query<R>, R = any>(query: Q): Promise<R> {
     const composed = this.middlewares.reverse().reduce<() => Promise<R>>(
