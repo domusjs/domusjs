@@ -1,10 +1,4 @@
-import { 
-  DomainEvent, 
-  EventBus, 
-  EventHandler,
-  EventConstructor,
-  Logger
-} from '@domusjs/core';
+import { DomainEvent, EventBus, EventHandler, EventConstructor, Logger } from '@domusjs/core';
 import { RabbitMQClient } from './rabbitmq-client';
 
 export class RabbitMQEventBus implements EventBus {
@@ -17,10 +11,7 @@ export class RabbitMQEventBus implements EventBus {
     private readonly logger: Logger
   ) {}
 
-  register<E extends DomainEvent>(
-    eventClass: EventConstructor<E>,
-    handler: EventHandler<E>
-  ): void {
+  register<E extends DomainEvent>(eventClass: EventConstructor<E>, handler: EventHandler<E>): void {
     const current = this.handlers.get(eventClass.TYPE) ?? [];
     this.handlers.set(eventClass.TYPE, [...current, handler]);
 

@@ -92,7 +92,7 @@ await commandBus.dispatch(new CreateUserCommand('john', 'john.doe@example.com'))
 const user = await queryBus.ask(new GetUserQuery('123'));
 ```
 
->Handlers encapsulate single actions or read queries, following CQRS principles by separating write and read responsibilities.
+> Handlers encapsulate single actions or read queries, following CQRS principles by separating write and read responsibilities.
 
 ### 🧩 Domain Building Blocks
 

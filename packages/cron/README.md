@@ -1,4 +1,4 @@
-# ⏰ Cron Module
+# 📅 DomusJS - Cron Module
 
 This module provides a simple and extensible scheduler to handle **repetitive or scheduled tasks** (e.g. every hour, once per day) using [node-cron](https://www.npmjs.com/package/node-cron).
 

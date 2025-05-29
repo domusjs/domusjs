@@ -1,5 +1,3 @@
-
-
 import { DomainEvent } from './event';
 
 export interface EventConstructor<E extends DomainEvent> {
