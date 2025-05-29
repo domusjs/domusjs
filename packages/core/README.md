@@ -8,8 +8,8 @@ The `@domusjs/core` module provides the foundational building blocks for impleme
 
 DomusJS Core introduces `CommandHandler` and `QueryHandler` interfaces to decouple business logic from transport layers:
 
-
 Command example:
+
 ```ts
 class CreateUserCommand {
   static readonly TYPE = 'CreateUser';
@@ -24,20 +24,18 @@ class CreateUserCommand {
 class CreateUserHandler implements CommandHandler<CreateUserCommand> {
   async execute(command: CreateUserCommand): Promise<void> {
     // Handle creation logic
-
   }
 }
 ```
 
 Query example:
+
 ```ts
 class GetUserQuery {
   static readonly TYPE = 'GetUser';
   readonly type = GetUserQuery.TYPE;
 
-  constructor(
-    public readonly userId: string
-  ) {}
+  constructor(public readonly userId: string) {}
 }
 
 interface UserResult {
@@ -52,16 +50,21 @@ class GetUserHandler implements QueryHandler<GetUserQuery, UserResult> {
     return {
       id: query.userId,
       name: 'John Doe',
-      email: 'john.doe@example.com'
+      email: 'john.doe@example.com',
     };
   }
 }
 ```
 
 Command & Query bus registration:
+
 ```ts
+import { container } from 'tsyringe';
 import { CommandBus, QueryBus } from '@domusjs/core';
 import { registerCommandHandler, registerQueryHandler } from '@domusjs/infrastructure';
+
+const commandBus = container.resolve<CommandBus>('CommandBus');
+const queryBus = container.resolve<QueryBus>('QueryBus');
 
 registerCommandHandler(commandBus, CreateUserCommand, CreateUserHandler);
 registerQueryHandler(queryBus, GetUserQuery, GetUserHandler);
