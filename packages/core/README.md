@@ -4,11 +4,13 @@ The `@domusjs/core` module provides the foundational building blocks for impleme
 
 ## ✨ Key Concepts
 
-### ✅ Commands & Queries
+### 🚀 Commands & Queries
 
-DomusJS Core introduces `CommandHandler` and `QueryHandler` interfaces to decouple business logic from transport layers:
+DomusJS Core introduces `CommandHandler` and `QueryHandler` interfaces to decouple business logic from transport layers, following the CQRS (Command Query Responsibility Segregation) pattern.
 
-Command example:
+#### Commands
+
+Commands represent write operations that change the system state:
 
 ```ts
 class CreateUserCommand {
@@ -28,7 +30,9 @@ class CreateUserHandler implements CommandHandler<CreateUserCommand> {
 }
 ```
 
-Query example:
+#### Queries
+
+Queries represent read operations that retrieve data
 
 ```ts
 class GetUserQuery {
@@ -56,7 +60,9 @@ class GetUserHandler implements QueryHandler<GetUserQuery, UserResult> {
 }
 ```
 
-Command & Query bus registration:
+#### Registration & Usage
+
+Register your handlers with the command and query buses:
 
 ```ts
 import { container } from 'tsyringe';
@@ -70,11 +76,29 @@ registerCommandHandler(commandBus, CreateUserCommand, CreateUserHandler);
 registerQueryHandler(queryBus, GetUserQuery, GetUserHandler);
 ```
 
-Handlers are meant to encapsulate a single action or read query, and they follow the CQRS principle by separating write and read responsibilities.
+Dispatch commands and execute queries:
 
-### 🧩 Entities and Value Objects
+```ts
+import { container } from 'tsyringe';
+import { CommandBus, QueryBus } from '@domusjs/core';
 
-The `Entity` and `ValueObject` base classes help model business concepts explicitly and immutably.
+const commandBus = container.resolve<CommandBus>('CommandBus');
+const queryBus = container.resolve<QueryBus>('QueryBus');
+
+// Execute a command (write operation)
+await commandBus.dispatch(new CreateUserCommand('john', 'john.doe@example.com'));
+
+// Execute a query (read operation)
+const user = await queryBus.ask(new GetUserQuery('123'));
+```
+
+>Handlers encapsulate single actions or read queries, following CQRS principles by separating write and read responsibilities.
+
+### 🧩 Domain Building Blocks
+
+#### Value Objects
+
+Value Objects represent immutable concepts in your domain:
 
 ```ts
 class Email extends ValueObject<{ value: string }> {
@@ -89,6 +113,10 @@ class Email extends ValueObject<{ value: string }> {
 }
 ```
 
+#### Entities
+
+Entities represent objects with identity that can change over time:
+
 ```ts
 class User extends Entity<{ email: Email; name: string }> {
   constructor(props: { email: Email; name: string }, id?: UniqueEntityId) {
@@ -98,16 +126,23 @@ class User extends Entity<{ email: Email; name: string }> {
   get email(): Email {
     return this.props.email;
   }
+
+  get name(): string {
+    return this.props.name;
+  }
 }
 ```
 
-### 🪪 UniqueEntityId
+#### Unique Entity Identifiers
 
-A lightweight UUID wrapper to help identify entities:
+A lightweight UUID wrapper for entity identification:
 
 ```ts
 const id = new UniqueEntityId(); // auto-generates a v4 UUID
-console.log(id.toString());
+const customId = new UniqueEntityId('custom-id-string');
+
+console.log(id.toString()); // outputs the UUID string
+console.log(id.equals(customId)); // false
 ```
 
 ## 🔥 Common Errors

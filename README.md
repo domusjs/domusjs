@@ -53,8 +53,15 @@ Then structure your app with clear contexts, services and bus-driven execution.
 
 ## 🧠 Philosophy
 
-DomusJS is not a full-stack framework — it's a backend *architecture kit*.  
-You decide how to structure your domain logic. DomusJS provides the building blocks to scale your architecture, not magic.
+DomusJS is not a full-stack framework — it's an *architecture-first backend kit*.
+
+You get the **building blocks** for designing scalable, decoupled, real-world systems:
+- Explicit boundaries.
+- Modular contexts.
+- Bus-driven execution.
+- Zero magic.
+
+DomusJS **trusts you as the architect**: it won’t hide complexity behind decorators or assumptions.
 
 ---
 
@@ -62,12 +69,12 @@ You decide how to structure your domain logic. DomusJS provides the building blo
 
 | Aspect             | **DomusJS**                                                             | **NestJS**                                                       |
 |--------------------|-------------------------------------------------------------------------|------------------------------------------------------------------|
-| **Philosophy**     | Architectural toolkit: minimal, modular, explicit                      | Full-stack framework: batteries-included                         |
-| **Abstraction**    | Manual wiring and DI encourages ownership of design                    | Heavy use of decorators and metadata abstraction                 |
-| **Complexity**     | Low baseline complexity, flexible project structure                    | Steeper learning curve with opinionated defaults                 |
-| **Modularity**     | Decoupled, framework-agnostic modules (auth, jobs, etc.)               | Modular, but tightly coupled to the Nest ecosystem               |
-| **Execution**      | Explicit use of Command/Query/Event Buses                              | Mostly hidden behind controller/service layers                   |
-| **Use Cases**      | Perfect for microservices, backend APIs, job workers, headless apps    | Great for teams needing batteries-included structure             |
+| **Philosophy**     | Minimalistic, architecture-focused toolkit for experts                 | Full-stack backend framework, batteries-included                 |
+| **Abstraction**    | Explicit manual wiring, maximum developer control                      | Heavy use of decorators and metadata abstraction                 |
+| **Complexity**     | Low baseline complexity, high flexibility                              | Higher baseline complexity with opinionated layers               |
+| **Extensibility**  | Plug-and-play modules, easily replaceable or extendable               | Strong ecosystem, but tightly coupled modules                   |
+| **Execution**      | Command/Query/Event Buses as first-class citizens                     | Controller-service driven, CQRS optional                         |
+| **Use Cases**      | Best for microservices, event-driven architectures, headless backends | Best for full-stack backends, enterprise APIs, rapid scaffolding |
 
 ---
 
@@ -75,18 +82,29 @@ You decide how to structure your domain logic. DomusJS provides the building blo
 
 Use **DomusJS** if:
 
-- You want full control over your application's architecture.
-- You prefer **explicit boundaries** and **low coupling** between application layers.
-- You are building **modular backend services**, **microservices**, or **event-driven systems**.
-- You want to scale a backend codebase while avoiding framework lock-in.
-- You need a **lean foundation** with **plug-and-play modules** for jobs, auth, RBAC, etc.
+- You are an experienced backend engineer or architect.
+- You want **explicit control** over the structure and flows of your application.
+- You are building **modular microservices**, **job-driven systems**, or **event-driven backends**.
+- You need **native observability, tracing, and decoupled buses**.
+- You value **clean architecture patterns** over heavy framework conventions.
+- You want to avoid framework lock-in and keep full ownership of your tech stack.
 
 Use **NestJS** if:
 
-- You want a comprehensive, **out-of-the-box solution** with controllers, interceptors, guards, etc.
-- You're working on a **large team** that benefits from heavy conventions and tooling.
-- You value a **batteries-included** ecosystem (CLI, Swagger, GraphQL, etc.).
-- You prefer heavy use of **decorators and dependency injection magic**.
+- You want an **out-of-the-box solution** with rich CLI, tooling, and conventions.
+- You’re working in a **large team** that benefits from standardization.
+- You value **batteries-included** features like controllers, interceptors, Swagger, GraphQL.
+- You prefer fast scaffolding and rapid delivery over architecture customization.
+
+---
+
+## ⚡ Why DomusJS?
+
+DomusJS exists for developers who:
+- Want to push the limits of scalable backend architecture.
+- Prefer modular systems over monolithic frameworks.
+- Need explicit control over buses, events, jobs, and tracing.
+- Believe architecture should be shaped by the problem, not the framework.
 
 ---
 

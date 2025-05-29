@@ -12,6 +12,7 @@ export * from './domain/event';
 export * from './domain/value-object';
 export * from './domain/entity';
 export * from './domain/repository';
+export * from './domain/event-constructor';
 
 // Errors exports
 export * from './errors/base-error';
