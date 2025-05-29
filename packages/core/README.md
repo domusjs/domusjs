@@ -8,8 +8,13 @@ The `@domusjs/core` module provides the foundational building blocks for impleme
 
 DomusJS Core introduces `CommandHandler` and `QueryHandler` interfaces to decouple business logic from transport layers:
 
+
+Command example:
 ```ts
 class CreateUserCommand {
+  static readonly TYPE = 'CreateUser';
+  readonly type = CreateUserCommand.TYPE;
+
   constructor(
     public readonly username: string,
     public readonly email: string
@@ -19,8 +24,47 @@ class CreateUserCommand {
 class CreateUserHandler implements CommandHandler<CreateUserCommand> {
   async execute(command: CreateUserCommand): Promise<void> {
     // Handle creation logic
+
   }
 }
+```
+
+Query example:
+```ts
+class GetUserQuery {
+  static readonly TYPE = 'GetUser';
+  readonly type = GetUserQuery.TYPE;
+
+  constructor(
+    public readonly userId: string
+  ) {}
+}
+
+interface UserResult {
+  id: string;
+  name: string;
+  email: string;
+}
+
+class GetUserHandler implements QueryHandler<GetUserQuery, UserResult> {
+  async execute(query: GetUserQuery): Promise<UserResult> {
+    // Handle query logic
+    return {
+      id: query.userId,
+      name: 'John Doe',
+      email: 'john.doe@example.com'
+    };
+  }
+}
+```
+
+Command & Query bus registration:
+```ts
+import { CommandBus, QueryBus } from '@domusjs/core';
+import { registerCommandHandler, registerQueryHandler } from '@domusjs/infrastructure';
+
+registerCommandHandler(commandBus, CreateUserCommand, CreateUserHandler);
+registerQueryHandler(queryBus, GetUserQuery, GetUserHandler);
 ```
 
 Handlers are meant to encapsulate a single action or read query, and they follow the CQRS principle by separating write and read responsibilities.
@@ -84,19 +128,3 @@ Use this module if you're:
 - Applying Domain-Driven Design and want consistent modeling
 - Working with CQRS and need a contract-based system for handlers
 - Building microservices or modular monoliths with explicit boundaries
-
-## 🛠️ Example Use Case
-
-Here's a simplified command-handler interaction:
-
-```ts
-const commandBus = container.resolve<CommandBus>('CommandBus');
-
-await commandBus.dispatch(new CreateUserCommand('pepe', 'test@domain.com'));
-```
-
-Handlers should be registered in a central dependency file:
-
-```ts
-container.register('CreateUserHandler', { useClass: CreateUserHandler });
-```
