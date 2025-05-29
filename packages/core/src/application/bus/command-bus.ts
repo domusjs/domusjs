@@ -21,5 +21,8 @@ export interface CommandBus {
    * @param commandClass - The command class to register
    * @param handlerClass - The handler class to register
    */
-  register<C extends Command, R>(commandClass: { TYPE: string }, handlerClass: new (...args: any[]) => CommandHandler<C, R>): void;
+  register<C extends Command, R>(
+    commandClass: { TYPE: string },
+    handlerClass: new (...args: any[]) => CommandHandler<C, R>
+  ): void;
 }

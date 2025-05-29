@@ -11,4 +11,3 @@ export function registerCommandHandler<C extends Command, R>(
   container.register(handlerClass, { useClass: handlerClass });
   commandBus.register(commandClass, handlerClass);
 }
-

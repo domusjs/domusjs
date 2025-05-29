@@ -14,7 +14,10 @@ export class MiddlewareQueryBus implements QueryBus {
     this.middlewares.push(middleware);
   }
 
-  register<Q extends Query, R = any>(queryClass: { TYPE: string }, handlerClass: new (...args: any[]) => QueryHandler<Q, R>): void {}
+  register<Q extends Query, R = any>(
+    queryClass: { TYPE: string },
+    handlerClass: new (...args: any[]) => QueryHandler<Q, R>
+  ): void {}
 
   async ask<Q extends Query<R>, R = any>(query: Q): Promise<R> {
     const composed = this.middlewares.reverse().reduce<() => Promise<R>>(

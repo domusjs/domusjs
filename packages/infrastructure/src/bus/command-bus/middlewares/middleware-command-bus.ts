@@ -16,9 +16,10 @@ export class MiddlewareCommandBus implements CommandBus {
     this.middlewares.push(middleware);
   }
 
-  register<C extends Command, R>(commandClass: { TYPE: string }, handlerClass: new (...args: any[]) => CommandHandler<C, R>): void {
-    
-  }
+  register<C extends Command, R>(
+    commandClass: { TYPE: string },
+    handlerClass: new (...args: any[]) => CommandHandler<C, R>
+  ): void {}
 
   async dispatch<C extends Command, R = void>(command: C): Promise<R> {
     const composed = [...this.middlewares].reverse().reduce<() => Promise<R>>(
