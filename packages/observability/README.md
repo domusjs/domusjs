@@ -75,7 +75,6 @@ await traceFn('my-operation', async (span) => {
 
 The `@Traceable` decorator automatically creates a tracing span for a method. It helps track the method's execution time and errors for better observability
 
-
 ```ts
 import { Traceable } from '@domusjs/observability';
 

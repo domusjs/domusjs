@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { RateLimiter } from './rate-limiter.interface';
 
-export function rateLimitMiddleware(rateLimiter: RateLimiter, keyResolver: (req: Request) => string) {
+export function rateLimitMiddleware(
+  rateLimiter: RateLimiter,
+  keyResolver: (req: Request) => string
+) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const key = keyResolver(req);
     const result = await rateLimiter.consume(key);

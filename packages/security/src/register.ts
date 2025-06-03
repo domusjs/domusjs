@@ -12,7 +12,6 @@ interface SecurityModuleOptions {
 }
 
 export function registerSecurityModule(options: SecurityModuleOptions = {}) {
-  
   container.register<Hasher>('Hasher', {
     useClass: BcryptHasher,
   });
