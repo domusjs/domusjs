@@ -1,9 +1,9 @@
-
 # 📊 DomusJS - Observability Module
 
 > Observability and distributed tracing module for DomusJS, powered by OpenTelemetry.
 
 This package provides a modular, plug-and-play observability layer for backend systems, offering:
+
 - **Tracing** across commands, queries, events, jobs, and HTTP requests.
 - **Instrumentation hooks** (Express, Prisma, BullMQ, etc.).
 - **Exporters** to popular backends like Signoz, Datadog, Jaeger.
@@ -48,10 +48,7 @@ setupObservability({
       url: 'http://localhost:4318/v1/traces',
     }),
   },
-  instrumentations: [
-    new HttpInstrumentation(),
-    new ExpressInstrumentation(),
-  ],
+  instrumentations: [new HttpInstrumentation(), new ExpressInstrumentation()],
 });
 ```
 
@@ -76,6 +73,9 @@ await traceFn('my-operation', async (span) => {
 
 ### Use the `@Traceable()` Decorator
 
+The `@Traceable` decorator automatically creates a tracing span for a method. It helps track the method's execution time and errors for better observability
+
+
 ```ts
 import { Traceable } from '@domusjs/observability';
 
@@ -97,10 +97,7 @@ You can use the provided `OpenTelemetryLogger` to automatically enrich logs with
 import { OpenTelemetryLogger } from '@domusjs/observability';
 import { container } from 'tsyringe';
 
-const openTelemetryLogger = new OpenTelemetryLogger(
-  'http://localhost:4318/v1/logs',
-  'my-service'
-);
+const openTelemetryLogger = new OpenTelemetryLogger('http://localhost:4318/v1/logs', 'my-service');
 
 registerDomusCore({
   logger: openTelemetryLogger,
@@ -116,11 +113,11 @@ logger.info('My log message', { additional: 'context' });
 
 ## 🌍 Supported Exporters
 
-| Exporter            | Package                                     | Use Case                               |
-|---------------------|--------------------------------------------|----------------------------------------|
-| OTLP (HTTP)         | `@opentelemetry/exporter-trace-otlp-http`  | Signoz, Datadog, Lightstep, etc.       |
-| Jaeger              | `@opentelemetry/exporter-jaeger`           | Jaeger backend                         |
-| Console (dev)       | `@opentelemetry/sdk-trace-base`            | Local debug, development only          |
+| Exporter      | Package                                   | Use Case                         |
+| ------------- | ----------------------------------------- | -------------------------------- |
+| OTLP (HTTP)   | `@opentelemetry/exporter-trace-otlp-http` | Signoz, Datadog, Lightstep, etc. |
+| Jaeger        | `@opentelemetry/exporter-jaeger`          | Jaeger backend                   |
+| Console (dev) | `@opentelemetry/sdk-trace-base`           | Local debug, development only    |
 
 ---
 
@@ -136,6 +133,7 @@ logger.info('My log message', { additional: 'context' });
 ## 🧩 Extensibility
 
 This module is designed to be:
+
 - Plug-and-play inside DomusJS.
 - Extendable with custom spans, attributes, or resources.
 - Ready for integration with OpenTelemetry metrics and logs.
