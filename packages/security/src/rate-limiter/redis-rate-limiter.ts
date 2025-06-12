@@ -1,25 +1,33 @@
-import { RateLimiter, RateLimitResult } from './rate-limiter.interface';
-import { Redis } from 'ioredis';
+import { Redis } from "ioredis";
+
+import { RateLimiter } from "./rate-limiter.interface";
+import { RateLimitResult } from "./rate-limiter.interface";
 
 export class RedisRateLimiter implements RateLimiter {
   constructor(
     private readonly redis: Redis,
-    private readonly limit = 100,
-    private readonly windowSec = 60
+    private readonly defaultLimit = 100,
+    private readonly defaultWindowSec = 60
   ) {}
 
-  async consume(key: string): Promise<RateLimitResult> {
+  async consume(
+    key: string,
+    overrides: { limit?: number; windowSec?: number } = {}
+  ): Promise<RateLimitResult> {
+    const limit = overrides.limit ?? this.defaultLimit;
+    const windowSec = overrides.windowSec ?? this.defaultWindowSec;
+
     const current = await this.redis.incr(key);
     if (current === 1) {
-      await this.redis.expire(key, this.windowSec);
+      await this.redis.expire(key, windowSec);
     }
 
     const ttl = await this.redis.ttl(key);
 
     return {
-      remaining: Math.max(this.limit - current, 0),
+      remaining: Math.max(limit - current, 0),
       resetIn: ttl,
-      isLimited: current > this.limit,
+      isLimited: current > limit,
     };
   }
 }

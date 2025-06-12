@@ -2,9 +2,10 @@ export interface RateLimiter {
   /**
    * Consumes a request from the rate limiter.
    * @param key - The key to consume the request from.
+   * @param options - The options for the rate limit.
    * @returns The result of the rate limit check.
    */
-  consume(key: string): Promise<RateLimitResult>;
+  consume(key: string, options?: { limit?: number; windowSec?: number }): Promise<RateLimitResult>;
 }
 
 export interface RateLimitResult {
