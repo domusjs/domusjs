@@ -1,5 +1,8 @@
 # 🏛 DomusJS
 
+![DomusJS Logo](assets/logo.png)
+
+
 > A scalable, TypeScript-first framework for real-world backend applications using Clean Architecture, CQRS, and modular design.
 
 

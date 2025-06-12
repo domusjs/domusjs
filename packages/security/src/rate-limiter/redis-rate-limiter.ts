@@ -1,7 +1,7 @@
-import { Redis } from "ioredis";
+import { Redis } from 'ioredis';
 
-import { RateLimiter } from "./rate-limiter.interface";
-import { RateLimitResult } from "./rate-limiter.interface";
+import { RateLimiter } from './rate-limiter.interface';
+import { RateLimitResult } from './rate-limiter.interface';
 
 export class RedisRateLimiter implements RateLimiter {
   constructor(
