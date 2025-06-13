@@ -11,7 +11,7 @@ interface AuthStrategyEntry<TPayload = any, TResult = any> {
   instance: AuthStrategy<TPayload, TResult>;
 }
 
-interface JWTConfig {
+export interface JWTConfig {
   secret: string;
   expiresIn: jwt.SignOptions['expiresIn'];
 }

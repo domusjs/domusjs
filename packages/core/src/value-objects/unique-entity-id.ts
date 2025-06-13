@@ -1,12 +1,10 @@
-// packages/core/src/value-objects/unique-entity-id.ts
-
 import { UniqueIdProvider } from './unique-id-provider.interface';
-import { NanoIdProvider } from './nanoid-id-provider';
+import { UUIDProvider } from './uuid-id-provider';
 
 export class UniqueEntityId {
   private readonly _value: string;
 
-  constructor(id?: string, provider: UniqueIdProvider = new NanoIdProvider()) {
+  constructor(id?: string, provider: UniqueIdProvider = new UUIDProvider()) {
     if (id) {
       this._value = id;
     } else {

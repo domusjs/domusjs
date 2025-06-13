@@ -8,10 +8,11 @@
   ],
   "scripts": {
     "build": "tsc -b",
-    "clean": "rm -rf dist && rm -rf tsconfig.tsbuildinfo"
+    "clean": "rm -rf dist && rm -rf tsconfig.tsbuildinfo && rm -rf node_modules"
   },
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "ioredis": "^5.6.1"
   },
   "peerDependencies": {

@@ -8,12 +8,16 @@
   ],
   "scripts": {
     "build": "tsc -b",
-    "clean": "rm -rf dist && rm -rf tsconfig.tsbuildinfo"
+    "clean": "rm -rf dist && rm -rf tsconfig.tsbuildinfo && rm -rf node_modules"
+  },
+  "dependencies": {
+    "@types/jsonwebtoken": "^9.0.9",
+    "bcryptjs": "^3.0.2",
+    "jsonwebtoken": "^9.0.2"
   },
   "peerDependencies": {
     "tsyringe": "^4.9.1"
   },
   "license": "MIT",
-  "author": "Sergio Salcedo",
-  "dependencies": {}
+  "author": "Sergio Salcedo"
 }

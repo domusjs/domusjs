@@ -1,10 +1,9 @@
-# 🏛 DomusJS
 
-![DomusJS Logo](assets/logo.png)
+<p align="center">
+  <a href="https://domusjs.com/" target="blank"><img src="http://localhost:4321/assets/domusjs_logo.png" width="120" alt="DomusJS Logo" /></a>
+</p>
 
-
-> A scalable, TypeScript-first framework for real-world backend applications using Clean Architecture, CQRS, and modular design.
-
+<p align="center">A scalable, TypeScript-first framework for real-world backend applications using Clean Architecture, CQRS, and modular design.</p>
 
 DomusJS provides a lightweight but powerful foundation for backend systems, focusing on **clarity**, **extensibility**, and **separation of concerns**. It encourages you to design your system with proper boundaries while offering plug-and-play modules for common needs like authentication, job queues, cron jobs, etc.
 
@@ -37,20 +36,12 @@ DomusJS is modular. Pick what you need:
 | `@domusjs/security`       | Hashing, password policies, validation helpers               |
 | `@domusjs/cron`           | DI-compatible cron scheduler for periodic tasks              |
 | `@domusjs/jobs`           | Job queue management using BullMQ                            |
-| `@domusjs/rbac`           | Role-based access control utilities                          |
 | `@domusjs/observability`  | Distributed tracing (OpenTelemetry, Datadog ready)           |
 
 ---
 
 ## 🚀 Getting Started
 
-Install the basic packages:
-
-```bash
-npm install @domusjs/core @domusjs/infrastructure
-```
-
-Then structure your app with clear contexts, services and bus-driven execution.
 
 ---
 
