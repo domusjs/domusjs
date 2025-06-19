@@ -28,6 +28,7 @@ npm install @domusjs/infrastructure
 ## Example Use Case: Registering a User
 
 ### Step 1: Define the Command
+
 ```ts
 import { Command } from '@domusjs/core';
 
@@ -43,6 +44,7 @@ export class RegisterUserCommand implements Command {
 ```
 
 ### Step 2: Create the Command Handler
+
 ```ts
 import { CommandHandler } from '@domusjs/core';
 import { RegisterUserCommand } from './register-user.command';

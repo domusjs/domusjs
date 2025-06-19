@@ -8,7 +8,6 @@ The Observability Module in DomusJS provides a robust, plug-and-play integration
 
 It’s designed to give you deep visibility into your system’s behavior across commands, queries, events, jobs, and HTTP requests.
 
-
 📘 **Documentation:** [@domusjs/observability Docs](https://docs.domusjs.com/modules/observability/observability-introduction/)
 
 ---
@@ -31,7 +30,6 @@ It’s designed to give you deep visibility into your system’s behavior across
 ```bash
 npm install @domusjs/observability @opentelemetry/exporter-trace-otlp-http
 ```
-
 
 DomusJS provides a flexible observability layer built on top of OpenTelemetry. Depending on what parts of your application you want to instrument (e.g. HTTP server, PostgreSQL, Redis), you will need to install the corresponding OpenTelemetry instrumentation packages.
 
@@ -64,10 +62,7 @@ setupObservability({
       url: 'http://localhost:4318/v1/traces',
     }),
   },
-  instrumentations: [
-    new HttpInstrumentation(),
-    new ExpressInstrumentation(),
-  ],
+  instrumentations: [new HttpInstrumentation(), new ExpressInstrumentation()],
 });
 ```
 

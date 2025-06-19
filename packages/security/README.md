@@ -29,15 +29,18 @@ import { registerSecurityModule, RedisRateLimiter } from '@domusjs/security';
 import { Redis } from 'ioredis';
 
 registerSecurityModule({
-  rateLimiter: new RedisRateLimiter(new Redis({
+  rateLimiter: new RedisRateLimiter(
+    new Redis({
       host: 'localhost',
       port: 6379,
       password: 'your-redis-password',
-  })),
+    })
+  ),
 });
 ```
 
 > ✅ This registers:
+>
 > - `Hasher` → default `BcryptHasher`
 > - `HashingService` → wrapper with convenience methods
 > - `RateLimiter` → passed implementation
@@ -61,11 +64,15 @@ DomusJS provides an Express middleware for applying rate limits using the regist
 ```ts
 import { rateLimitMiddleware } from '@domusjs/security';
 
-app.post('/login', rateLimitMiddleware({
-  keyResolver: (req) => `login:${req.ip}`,
-  limit: 5,
-  windowSec: 60,
-}), loginHandler);
+app.post(
+  '/login',
+  rateLimitMiddleware({
+    keyResolver: (req) => `login:${req.ip}`,
+    limit: 5,
+    windowSec: 60,
+  }),
+  loginHandler
+);
 ```
 
 ✅ Adds headers like `X-RateLimit-Remaining` and `X-RateLimit-Reset`  
@@ -79,17 +86,20 @@ app.post('/login', rateLimitMiddleware({
 You can apply the middleware globally:
 
 ```ts
-app.use(rateLimitMiddleware({
-  keyResolver: req => req.ip,
-}));
+app.use(
+  rateLimitMiddleware({
+    keyResolver: (req) => req.ip,
+  })
+);
 ```
 
 And override per route:
 
 ```ts
-app.post('/reset-password',
+app.post(
+  '/reset-password',
   rateLimitMiddleware({
-    keyResolver: req => `reset:${req.ip}`,
+    keyResolver: (req) => `reset:${req.ip}`,
     limit: 3,
     windowSec: 300,
   }),
