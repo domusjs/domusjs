@@ -1,4 +1,4 @@
-# 🚀 DomusJS – Jobs Module
+# @domusjs/jobs
 
 The `@domusjs/jobs` package offers a structured and scalable solution for managing **background jobs** and **recurring tasks** in distributed applications. It operates with BullMQ under the hood.
 
@@ -16,11 +16,18 @@ Use this module when:
 - You need to run asynchronous or long-running tasks off the main HTTP request cycle
 - You need job retries, failure handling, or queueing logic
 
-## 🔨 Example
+## Install
+
+```bash
+npm install @domusjs/jobs
+```
+
+## Usage
 
 ### 1. Define a Job
 
 ```ts
+// hello-world.job.ts
 import { JobTask } from '@domusjs/jobs';
 
 type HelloWorldJobData = {
@@ -36,13 +43,16 @@ export class HelloWorldJob extends JobTask {
 
   async execute(): Promise<string> {
     const ret = `[HelloWorldJob] Hello ${this.data.name}!`;
-
     return ret;
   }
 }
 ```
 
-### 2. Setup the Job Queue, Worker and Worker events
+✅ This defines a reusable job by extending `JobTask`, with a clear `jobName` identifier and its own `execute()` logic.
+
+---
+
+### 2. Set Up Client, Queue, Worker, and Events
 
 ```ts
 import 'reflect-metadata';
@@ -50,32 +60,32 @@ import 'reflect-metadata';
 import { DomusJobClient } from '@domusjs/jobs';
 import { HelloWorldJob } from './hello-world.job';
 
-// Create a client
+// Create a client with Redis connection settings
 const client = new DomusJobClient({
   host: 'localhost',
   port: 6379,
-  password: 'password',
+  password: 'your_password',
 });
 
-// Create queue
+// Create a queue
 const queue = client.createQueue('basic_queue');
 
-// Add a worker to the queue
+// Add a worker for the queue
 const worker = client.createWorker(queue, [HelloWorldJob]);
 
-// Enqueue jobs
-queue.add(new HelloWorldJob({ name: 'DomusJS' }));
+// Enqueue a job
+await queue.add(new HelloWorldJob({ name: 'DomusJS' }));
 
 // Handle worker events
 worker.onFailed((job, error) => {
-  console.error('Job failed', {
+  console.error('Job failed:', {
     jobId: job?.id,
     error: error.message,
   });
 });
 
 worker.onCompleted((job, result) => {
-  console.info('Job completed', {
+  console.info('Job completed:', {
     jobId: job?.id,
     result,
   });
@@ -84,8 +94,8 @@ worker.onCompleted((job, result) => {
 
 ---
 
-## 🧰 Testing
+## 🔗 Learn More
 
-- Jobs are plain classes and can be tested in isolation.
-- You can use in-memory queues in tests or mock queue calls.
-- Avoid tight coupling to BullMQ directly — always interact through `DomusQueue`.
+For advanced aspects, check out the full documentation:
+
+👉 [https://docs.domusjs.com](https://docs.domusjs.com)

@@ -1,14 +1,15 @@
-# 📊 DomusJS - Observability Module
+# 👀 @domusjs/observability
 
-> Observability and distributed tracing module for DomusJS, powered by OpenTelemetry.
+The Observability Module in DomusJS provides a robust, plug-and-play integration with OpenTelemetry to enable:
 
-This package provides a modular, plug-and-play observability layer for backend systems, offering:
+- ✅ Distributed tracing
+- ✅ Application-level metrics
+- ✅ Centralized, traceable logging
 
-- **Tracing** across commands, queries, events, jobs, and HTTP requests.
-- **Instrumentation hooks** (Express, Prisma, BullMQ, etc.).
-- **Exporters** to popular backends like Signoz, Datadog, Jaeger.
-- **Logger integration** to propagate trace context inside your logs.
-- **Full type safety** to extend and configure as you need.
+It’s designed to give you deep visibility into your system’s behavior across commands, queries, events, jobs, and HTTP requests.
+
+
+📘 **Documentation:** [@domusjs/observability Docs](https://docs.domusjs.com/modules/observability/observability-introduction/)
 
 ---
 
@@ -28,111 +29,73 @@ This package provides a modular, plug-and-play observability layer for backend s
 ### Install
 
 ```bash
-npm install @domusjs/observability @opentelemetry/api
+npm install @domusjs/observability @opentelemetry/exporter-trace-otlp-http
+```
+
+
+DomusJS provides a flexible observability layer built on top of OpenTelemetry. Depending on what parts of your application you want to instrument (e.g. HTTP server, PostgreSQL, Redis), you will need to install the corresponding OpenTelemetry instrumentation packages.
+
+You can find the full list here:
+👉 [OpenTelemetry Instrumentation Packages](https://www.npmjs.com/search?q=%40opentelemetry%2Finstrumentation)
+
+For example:
+
+```bash
+npm install @opentelemetry/instrumentation-http @opentelemetry/instrumentation-express
 ```
 
 ---
 
-### Basic Setup
+## Basic Usage
+
+### Setup the Tracer
 
 ```ts
 import { setupObservability, getDefaultConfig } from '@domusjs/observability';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
 import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express';
-import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 
 setupObservability({
   config: {
-    ...getDefaultConfig('my-service'),
+    ...getDefaultConfig('domusjs-app'),
     traceExporter: new OTLPTraceExporter({
       url: 'http://localhost:4318/v1/traces',
     }),
   },
-  instrumentations: [new HttpInstrumentation(), new ExpressInstrumentation()],
+  instrumentations: [
+    new HttpInstrumentation(),
+    new ExpressInstrumentation(),
+  ],
 });
 ```
 
-✅ This sets up tracing and instrumentation for HTTP + Express, sending data to an OTLP-compatible backend like Signoz or Datadog.
+✅ This initializes OpenTelemetry with your desired exporters and instrumentations.
 
 ---
 
-## 🌟 Usage Examples
+### Use the @Traceable Decorator
 
-### Trace a Function Manually
-
-```ts
-import { traceFn } from '@domusjs/observability';
-
-await traceFn('my-operation', async (span) => {
-  span.setAttribute('custom.attribute', 'value');
-  // ... your logic here
-});
-```
-
----
-
-### Use the `@Traceable()` Decorator
-
-The `@Traceable` decorator automatically creates a tracing span for a method. It helps track the method's execution time and errors for better observability
+The `@Traceable` decorator automatically creates a tracing span for a method, tracking execution time, attributes, and events.
 
 ```ts
 import { Traceable } from '@domusjs/observability';
 
-class VideoProcessor {
-  @Traceable()
-  async processVideo(videoId: string) {
-    // This method is automatically wrapped in a tracing span
+class UserService {
+  @Traceable({ spanName: 'user.create' })
+  async createUser(data: any) {
+    // Logic here
   }
 }
 ```
 
----
-
-## 🔌 Advanced: Logger Integration
-
-You can use the provided `OpenTelemetryLogger` to automatically enrich logs with trace context:
-
-```ts
-import { OpenTelemetryLogger } from '@domusjs/observability';
-import { container } from 'tsyringe';
-
-const openTelemetryLogger = new OpenTelemetryLogger('http://localhost:4318/v1/logs', 'my-service');
-
-registerDomusCore({
-  logger: openTelemetryLogger,
-});
-
-const logger = container.resolve('Logger');
-logger.info('My log message', { additional: 'context' });
-```
-
-✅ This will include `traceId` and `spanId` in your logs for easy correlation.
+✅ Automatically creates spans when the decorated method is called.xw
 
 ---
 
-## 🌍 Supported Exporters
+## 🔗 Learn More
 
-| Exporter      | Package                                   | Use Case                         |
-| ------------- | ----------------------------------------- | -------------------------------- |
-| OTLP (HTTP)   | `@opentelemetry/exporter-trace-otlp-http` | Signoz, Datadog, Lightstep, etc. |
-| Jaeger        | `@opentelemetry/exporter-jaeger`          | Jaeger backend                   |
-| Console (dev) | `@opentelemetry/sdk-trace-base`           | Local debug, development only    |
+For advanced aspects, check out the full documentation:
 
----
-
-## 🛠 Configuration Tips
-
-- **Service name:** Set in `getDefaultConfig('my-service')`.
-- **Sampling:** By default uses `AlwaysOnSampler`; you can customize it.
-- **Instrumentations:** Add more (e.g., `PrismaInstrumentation`, `BullMQInstrumentation`) as needed.
-- **Context propagation:** Automatically wired with Express, but extend manually in other layers.
-
----
-
-## 🧩 Extensibility
-
-This module is designed to be:
-
-- Plug-and-play inside DomusJS.
-- Extendable with custom spans, attributes, or resources.
-- Ready for integration with OpenTelemetry metrics and logs.
+👉 [https://docs.domusjs.com](https://docs.domusjs.com)

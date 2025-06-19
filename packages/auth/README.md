@@ -1,28 +1,39 @@
-# 🛡️ DomusJS - Auth Module
+# @domusjs/auth
 
-The `@domusjs/auth` module provides a flexible authentication layer. It is designed to support multiple authentication strategies (e.g. password, Google, GitHub), allowing developers to plug in their own providers and control the shape of the authenticated user data (`AuthResult`).
+The `@domusjs/auth` module provides a modular, extensible foundation for handling user authentication in modern backend applications.
 
-## ✨ Features
+📘 **Documentation:** [@domusjs/auth Docs](https://docs.domusjs.com/modules/auth/auth-introduction/)
 
-- 🔑 Support for multiple auth providers (password, OAuth, etc.)
-- 🔄 Strategy pattern for easy extensibility
-- 🔐 JWT integration for session management
-- 🧩 Decoupled design to support any domain-specific user model
-- ✅ Built-in interfaces and services to speed up integration
+---
 
-## 🚀 Usage
+## Features
 
-### 1. Define your own `AuthResult`
+- 🧩 Pluggable strategies for authentication (e.g., credentials, Google, GitHub, etc.)
+- 🔐 Unified JWT generation and validation
+- ✨ Built with extensibility and type-safety in mind
+
+---
+
+## Installation
+
+```bash
+npm install @domusjs/auth
+```
+
+---
+
+### Usage
+
+#### 1. Define your own `AuthResult`
 
 ```ts
 export interface UserAuthResult {
   userId: string;
   email: string;
-  roles: string[];
 }
 ```
 
-### 2. Implement a custom strategy
+#### 2. Implement a custom strategy
 
 ```ts
 // password-auth.strategy.ts
@@ -46,10 +57,11 @@ export class PasswordAuthStrategy implements AuthStrategy<PasswordAuthPayload, P
 }
 ```
 
-### 3. Register Auth Module with custom strategies
+#### 3. Register Auth Module with custom strategies
 
 ```ts
 import { registerAuthModule, AuthService } from '@domusjs/auth';
+import { PasswordAuthStrategy } from './password-auth.strategy';
 
 const jwtOptions = {
   secret: 'my_jwt_secret',
@@ -67,10 +79,14 @@ registerAuthModule(
 );
 ```
 
-### 4. Use AuthService
+#### 4. Use AuthService
 
 ```ts
-const authService = container.resolve('AuthService');
+import { container } from 'tsyringe';
+import { AuthService } from '@domusjs/auth';
+import { PasswordAuthStrategy } from './password-auth.strategy';
+
+const authService = container.resolve<AuthService>('AuthService');
 const authResult = await authService.loginWith(PasswordAuthStrategy, {
   email: 'me@test.com',
   password: '1234',
@@ -79,9 +95,8 @@ const authResult = await authService.loginWith(PasswordAuthStrategy, {
 
 ---
 
-### 📐 Design Philosophy
+## 🔗 Learn More
 
-- **Open to extension, closed to modification** – easily plug in custom strategies.
-- **Domain-agnostic** – does not assume any user model.
-- **Type-safe by default** – strategy payloads and results are strongly typed.
-- **Testable** – the service and strategies are easy to mock in isolation.
+For advanced patterns, dependency injection, and more, check out the full documentation:
+
+👉 [https://docs.domusjs.com](https://docs.domusjs.com)
