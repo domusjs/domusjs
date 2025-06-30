@@ -10,7 +10,7 @@ export class AuthService {
     this.strategies.set(strategy, instance);
   }
 
-  loginWith<TPayload, TResult>(
+  async loginWith<TPayload, TResult>(
     strategy: StrategyClass<TPayload, TResult>,
     payload: TPayload
   ): Promise<TResult> {
