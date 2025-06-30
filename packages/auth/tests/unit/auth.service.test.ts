@@ -42,10 +42,10 @@ describe('AuthService', () => {
 
     it('should overwrite existing strategy when registering same class', () => {
       const newInstance = new MockStrategy1();
-      
+
       authService.register(MockStrategy1, mockStrategy1);
       authService.register(MockStrategy1, newInstance);
-      
+
       // Should not throw when trying to login with the new instance
       expect(() => {
         authService.loginWith(MockStrategy1, { username: 'test' });
@@ -61,13 +61,13 @@ describe('AuthService', () => {
 
     it('should successfully login with registered strategy', async () => {
       const result = await authService.loginWith(MockStrategy1, { username: 'testuser' });
-      
+
       expect(result).toEqual({ token: 'token-testuser' });
     });
 
     it('should successfully login with different strategy', async () => {
       const result = await authService.loginWith(MockStrategy2, { email: 'test@example.com' });
-      
+
       expect(result).toEqual({ user: { email: 'test@example.com' } });
     });
 
@@ -78,16 +78,14 @@ describe('AuthService', () => {
         }
       }
 
-      await expect(
-        authService.loginWith(UnregisteredStrategy, {})
-      ).rejects.toThrow();
+      await expect(authService.loginWith(UnregisteredStrategy, {})).rejects.toThrow();
     });
 
     it('should call the correct strategy login method', async () => {
       const loginSpy = vi.spyOn(mockStrategy1, 'login');
-      
+
       await authService.loginWith(MockStrategy1, { username: 'testuser' });
-      
+
       expect(loginSpy).toHaveBeenCalledWith({ username: 'testuser' });
       expect(loginSpy).toHaveBeenCalledTimes(1);
     });
@@ -101,9 +99,9 @@ describe('AuthService', () => {
 
       authService.register(MockStrategy1, errorStrategy);
 
-      await expect(
-        authService.loginWith(MockStrategy1, { username: 'testuser' })
-      ).rejects.toThrow('Login failed');
+      await expect(authService.loginWith(MockStrategy1, { username: 'testuser' })).rejects.toThrow(
+        'Login failed'
+      );
     });
   });
 
@@ -147,4 +145,4 @@ describe('AuthService', () => {
       expect(result.permissions).toEqual(['read', 'write']);
     });
   });
-}); 
+});

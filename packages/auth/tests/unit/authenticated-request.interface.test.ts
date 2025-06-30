@@ -287,4 +287,4 @@ describe('AuthenticatedRequest Interface', () => {
       expect(request.auth.preferences?.theme).toBe('dark');
     });
   });
-}); 
+});

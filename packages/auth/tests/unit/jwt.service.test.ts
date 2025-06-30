@@ -12,10 +12,13 @@ describe('JWTService', () => {
   beforeEach(() => {
     jwtService = new JWTService(mockSecret, mockExpiresIn);
     vi.clearAllMocks();
-    
+
     // Setup default mocks
-    ( jwt.sign as unknown as MockInstance ).mockReturnValue('mocked-jwt-token');
-    ( jwt.verify as unknown as MockInstance ).mockReturnValue({ userId: '123', email: 'test@example.com' });
+    (jwt.sign as unknown as MockInstance).mockReturnValue('mocked-jwt-token');
+    (jwt.verify as unknown as MockInstance).mockReturnValue({
+      userId: '123',
+      email: 'test@example.com',
+    });
   });
 
   describe('constructor', () => {
@@ -37,9 +40,9 @@ describe('JWTService', () => {
   describe('sign', () => {
     it('should sign payload and return JWT token', () => {
       const payload = { userId: '123', email: 'test@example.com' };
-      
+
       const token = jwtService.sign(payload);
-      
+
       expect(jwt.sign).toHaveBeenCalledWith(payload, mockSecret, { expiresIn: mockExpiresIn });
       expect(token).toBe('mocked-jwt-token');
     });
@@ -60,9 +63,9 @@ describe('JWTService', () => {
 
     it('should handle empty payload', () => {
       const payload = {};
-      
+
       jwtService.sign(payload);
-      
+
       expect(jwt.sign).toHaveBeenCalledWith(payload, mockSecret, { expiresIn: mockExpiresIn });
     });
 
@@ -86,9 +89,9 @@ describe('JWTService', () => {
   describe('verify', () => {
     it('should verify token and return payload', () => {
       const token = 'valid-jwt-token';
-      
+
       const payload = jwtService.verify(token);
-      
+
       expect(jwt.verify).toHaveBeenCalledWith(token, mockSecret);
       expect(payload).toEqual({ userId: '123', email: 'test@example.com' });
     });
@@ -100,7 +103,7 @@ describe('JWTService', () => {
         'Bearer token',
       ];
 
-      tokens.forEach(token => {
+      tokens.forEach((token) => {
         jwtService.verify(token);
         expect(jwt.verify).toHaveBeenCalledWith(token, mockSecret);
       });
@@ -155,7 +158,7 @@ describe('JWTService', () => {
         role: 'admin',
       };
 
-      ( jwt.verify as unknown as MockInstance ).mockReturnValue(payload);
+      (jwt.verify as unknown as MockInstance).mockReturnValue(payload);
 
       const token = typedJwtService.sign(payload);
       const verifiedPayload = typedJwtService.verify(token);
@@ -172,7 +175,7 @@ describe('JWTService', () => {
         metadata: { lastLogin: '2023-01-01T00:00:00Z' },
       };
 
-      ( jwt.verify as unknown as MockInstance ).mockReturnValue(originalPayload);
+      (jwt.verify as unknown as MockInstance).mockReturnValue(originalPayload);
 
       const token = jwtService.sign(originalPayload);
       const verifiedPayload = jwtService.verify(token);
@@ -218,4 +221,4 @@ describe('JWTService', () => {
       }).not.toThrow(); // undefined usa el valor por defecto
     });
   });
-}); 
+});

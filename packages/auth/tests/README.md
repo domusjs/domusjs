@@ -21,6 +21,7 @@ tests/
 ## Test Coverage
 
 ### AuthService Tests
+
 - Strategy registration and management
 - Login functionality with different strategies
 - Error handling for unregistered strategies
@@ -28,6 +29,7 @@ tests/
 - Integration scenarios
 
 ### JWTService Tests
+
 - JWT token signing with different payloads
 - Token verification and error handling
 - Different expiration time formats
@@ -35,6 +37,7 @@ tests/
 - Error propagation
 
 ### JWT Middleware Tests
+
 - Authorization header validation
 - Token extraction and verification
 - Error handling for invalid tokens
@@ -43,6 +46,7 @@ tests/
 - Type safety with generic payloads
 
 ### Register Function Tests
+
 - JWTService registration with configuration
 - AuthService registration
 - Strategy registration and management
@@ -50,6 +54,7 @@ tests/
 - Error handling scenarios
 
 ### Interface Tests
+
 - AuthStrategy interface compatibility
 - StrategyClass type safety
 - AuthenticatedRequest interface structure
@@ -57,6 +62,7 @@ tests/
 - Real-world usage patterns
 
 ### Integration Tests
+
 - Complete authentication flow
 - Service registration and resolution
 - Multiple strategy support
@@ -66,12 +72,14 @@ tests/
 ## Running Tests
 
 ### Install Dependencies
+
 ```bash
 cd packages/auth
 pnpm install
 ```
 
 ### Run Tests
+
 ```bash
 # Run tests in watch mode
 pnpm test
@@ -95,11 +103,13 @@ The tests use Vitest with the following configuration:
 ## Mocking Strategy
 
 ### External Dependencies
+
 - **tsyringe**: Container operations are mocked
 - **jsonwebtoken**: JWT operations are mocked
 - **@domusjs/core**: UnauthorizedError is mocked
 
 ### Test Utilities
+
 - Mock strategy implementations for testing
 - Request/Response mocks for middleware testing
 - Container service resolution mocks
@@ -127,8 +137,9 @@ When adding new tests:
 ## Coverage Goals
 
 The tests aim for high coverage of:
+
 - ✅ All public methods and functions
 - ✅ Error handling paths
 - ✅ Type safety scenarios
 - ✅ Integration flows
-- ✅ Edge cases and boundary conditions 
+- ✅ Edge cases and boundary conditions

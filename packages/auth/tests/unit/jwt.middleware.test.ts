@@ -17,7 +17,7 @@ describe('jwtAuthMiddleware', () => {
       headers: {},
     };
     mockResponse = {};
-    mockNext = vi.fn() as NextFunction;
+    mockNext = vi.fn() as unknown as NextFunction;
     mockJwtService = {
       verify: vi.fn(),
     } as any;
@@ -236,4 +236,4 @@ describe('jwtAuthMiddleware', () => {
       expect((mockRequest as any).auth).toEqual(mockPayload);
     });
   });
-}); 
+});

@@ -37,11 +37,11 @@ describe('registerAuthModule', () => {
         useValue: expect.any(JWTService),
       });
 
-      const registerCall = vi.mocked(container.register).mock.calls.find(
-        call => call[0] === 'JWTService'
-      );
+      const registerCall = vi
+        .mocked(container.register)
+        .mock.calls.find((call) => call[0] === 'JWTService');
       const jwtService = (registerCall?.[1] as any)?.useValue as JWTService;
-      
+
       expect(jwtService).toBeInstanceOf(JWTService);
     });
 
@@ -53,11 +53,11 @@ describe('registerAuthModule', () => {
 
       registerAuthModule([], customConfig);
 
-      const registerCall = vi.mocked(container.register).mock.calls.find(
-        call => call[0] === 'JWTService'
-      );
+      const registerCall = vi
+        .mocked(container.register)
+        .mock.calls.find((call) => call[0] === 'JWTService');
       const jwtService = (registerCall?.[1] as any)?.useValue as JWTService;
-      
+
       expect(jwtService).toBeInstanceOf(JWTService);
     });
 
@@ -69,7 +69,7 @@ describe('registerAuthModule', () => {
         { secret: 'secret4', expiresIn: '7d' },
       ];
 
-      configs.forEach(config => {
+      configs.forEach((config) => {
         expect(() => {
           registerAuthModule([], config);
         }).not.toThrow();
@@ -85,22 +85,22 @@ describe('registerAuthModule', () => {
         useValue: expect.any(AuthService),
       });
 
-      const registerCall = vi.mocked(container.register).mock.calls.find(
-        call => call[0] === 'AuthService'
-      );
+      const registerCall = vi
+        .mocked(container.register)
+        .mock.calls.find((call) => call[0] === 'AuthService');
       const authService = (registerCall?.[1] as any)?.useValue as AuthService;
-      
+
       expect(authService).toBeInstanceOf(AuthService);
     });
 
     it('should register AuthService even with empty strategies array', () => {
       registerAuthModule([], mockJWTConfig);
 
-      const registerCall = vi.mocked(container.register).mock.calls.find(
-        call => call[0] === 'AuthService'
-      );
+      const registerCall = vi
+        .mocked(container.register)
+        .mock.calls.find((call) => call[0] === 'AuthService');
       const authService = (registerCall?.[1] as any)?.useValue as AuthService;
-      
+
       expect(authService).toBeInstanceOf(AuthService);
     });
   });
@@ -114,9 +114,9 @@ describe('registerAuthModule', () => {
 
       registerAuthModule(strategies, mockJWTConfig);
 
-      const registerCall = vi.mocked(container.register).mock.calls.find(
-        call => call[0] === 'AuthService'
-      );
+      const registerCall = vi
+        .mocked(container.register)
+        .mock.calls.find((call) => call[0] === 'AuthService');
       const authService = (registerCall?.[1] as any)?.useValue as AuthService;
 
       // Test that strategies are registered by trying to login
@@ -130,18 +130,18 @@ describe('registerAuthModule', () => {
         registerAuthModule([], mockJWTConfig);
       }).not.toThrow();
 
-      const registerCall = vi.mocked(container.register).mock.calls.find(
-        call => call[0] === 'AuthService'
-      );
+      const registerCall = vi
+        .mocked(container.register)
+        .mock.calls.find((call) => call[0] === 'AuthService');
       const authService = (registerCall?.[1] as any)?.useValue as AuthService;
-      
+
       expect(authService).toBeInstanceOf(AuthService);
     });
 
     it('should register multiple strategies correctly', () => {
       const strategy1 = new MockStrategy1();
       const strategy2 = new MockStrategy2();
-      
+
       const strategies = [
         { strategy: MockStrategy1, instance: strategy1 },
         { strategy: MockStrategy2, instance: strategy2 },
@@ -149,9 +149,9 @@ describe('registerAuthModule', () => {
 
       registerAuthModule(strategies, mockJWTConfig);
 
-      const registerCall = vi.mocked(container.register).mock.calls.find(
-        call => call[0] === 'AuthService'
-      );
+      const registerCall = vi
+        .mocked(container.register)
+        .mock.calls.find((call) => call[0] === 'AuthService');
       const authService = (registerCall?.[1] as any)?.useValue as AuthService;
 
       // Both strategies should be registered and functional
@@ -164,9 +164,7 @@ describe('registerAuthModule', () => {
 
   describe('integration tests', () => {
     it('should register both JWTService and AuthService with strategies', () => {
-      const strategies = [
-        { strategy: MockStrategy1, instance: new MockStrategy1() },
-      ];
+      const strategies = [{ strategy: MockStrategy1, instance: new MockStrategy1() }];
 
       registerAuthModule(strategies, mockJWTConfig);
 
@@ -185,7 +183,7 @@ describe('registerAuthModule', () => {
     it('should create functional AuthService with registered strategies', async () => {
       const strategy1 = new MockStrategy1();
       const strategy2 = new MockStrategy2();
-      
+
       const strategies = [
         { strategy: MockStrategy1, instance: strategy1 },
         { strategy: MockStrategy2, instance: strategy2 },
@@ -193,9 +191,9 @@ describe('registerAuthModule', () => {
 
       registerAuthModule(strategies, mockJWTConfig);
 
-      const registerCall = vi.mocked(container.register).mock.calls.find(
-        call => call[0] === 'AuthService'
-      );
+      const registerCall = vi
+        .mocked(container.register)
+        .mock.calls.find((call) => call[0] === 'AuthService');
       const authService = (registerCall?.[1] as any)?.useValue as AuthService;
 
       // Test both strategies work
@@ -236,10 +234,10 @@ describe('registerAuthModule', () => {
       registerAuthModule([], mockJWTConfig);
 
       const calls = vi.mocked(container.register).mock.calls;
-      const jwtServiceCallIndex = calls.findIndex(call => call[0] === 'JWTService');
-      const authServiceCallIndex = calls.findIndex(call => call[0] === 'AuthService');
+      const jwtServiceCallIndex = calls.findIndex((call) => call[0] === 'JWTService');
+      const authServiceCallIndex = calls.findIndex((call) => call[0] === 'AuthService');
 
       expect(jwtServiceCallIndex).toBeLessThan(authServiceCallIndex);
     });
   });
-}); 
+});

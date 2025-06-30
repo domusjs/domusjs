@@ -8,8 +8,13 @@ import { AuthStrategy } from '../../src/auth-strategy.interface';
 import { Request, Response, NextFunction } from 'express';
 
 // Mock strategy for integration testing
-class IntegrationTestStrategy implements AuthStrategy<{ username: string; password: string }, { token: string; user: any }> {
-  async login(payload: { username: string; password: string }): Promise<{ token: string; user: any }> {
+class IntegrationTestStrategy
+  implements AuthStrategy<{ username: string; password: string }, { token: string; user: any }>
+{
+  async login(payload: {
+    username: string;
+    password: string;
+  }): Promise<{ token: string; user: any }> {
     if (payload.username === 'testuser' && payload.password === 'password123') {
       return {
         token: 'integration-test-token',
@@ -33,7 +38,7 @@ describe('Auth Module Integration', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    
+
     // Setup test configuration
     const jwtConfig: JWTConfig = {
       secret: 'integration-test-secret',
@@ -48,12 +53,12 @@ describe('Auth Module Integration', () => {
     registerAuthModule(strategies, jwtConfig);
 
     // Get registered services
-    const jwtServiceCall = vi.mocked(container.register).mock.calls.find(
-      call => call[0] === 'JWTService'
-    );
-    const authServiceCall = vi.mocked(container.register).mock.calls.find(
-      call => call[0] === 'AuthService'
-    );
+    const jwtServiceCall = vi
+      .mocked(container.register)
+      .mock.calls.find((call) => call[0] === 'JWTService');
+    const authServiceCall = vi
+      .mocked(container.register)
+      .mock.calls.find((call) => call[0] === 'AuthService');
 
     jwtService = (jwtServiceCall?.[1] as any)?.useValue as JWTService;
     authService = (authServiceCall?.[1] as any)?.useValue as AuthService;
@@ -91,7 +96,7 @@ describe('Auth Module Integration', () => {
       // Mock JWT signing - we need to mock the actual JWTService methods
       const mockSign = vi.fn().mockReturnValue('signed-jwt-token');
       const mockVerify = vi.fn().mockReturnValue(jwtPayload);
-      
+
       // Replace the methods on the actual service instance
       jwtService.sign = mockSign;
       jwtService.verify = mockVerify;
@@ -118,9 +123,9 @@ describe('Auth Module Integration', () => {
       // Test invalid login credentials
       const invalidPayload = { username: 'wronguser', password: 'wrongpass' };
 
-      await expect(
-        authService.loginWith(IntegrationTestStrategy, invalidPayload)
-      ).rejects.toThrow('Invalid credentials');
+      await expect(authService.loginWith(IntegrationTestStrategy, invalidPayload)).rejects.toThrow(
+        'Invalid credentials'
+      );
 
       // Test invalid JWT token in middleware
       mockRequest.headers = {
@@ -151,12 +156,12 @@ describe('Auth Module Integration', () => {
     });
 
     it('should resolve services correctly from container', () => {
-      const jwtServiceCall = vi.mocked(container.register).mock.calls.find(
-        call => call[0] === 'JWTService'
-      );
-      const authServiceCall = vi.mocked(container.register).mock.calls.find(
-        call => call[0] === 'AuthService'
-      );
+      const jwtServiceCall = vi
+        .mocked(container.register)
+        .mock.calls.find((call) => call[0] === 'JWTService');
+      const authServiceCall = vi
+        .mocked(container.register)
+        .mock.calls.find((call) => call[0] === 'AuthService');
 
       const registeredJwtService = (jwtServiceCall?.[1] as any)?.useValue as JWTService;
       const registeredAuthService = (authServiceCall?.[1] as any)?.useValue as AuthService;
@@ -206,9 +211,7 @@ describe('Auth Module Integration', () => {
       const errorAuthService = new AuthService();
       errorAuthService.register(ErrorStrategy, new ErrorStrategy());
 
-      await expect(
-        errorAuthService.loginWith(ErrorStrategy, {})
-      ).rejects.toThrow('Strategy error');
+      await expect(errorAuthService.loginWith(ErrorStrategy, {})).rejects.toThrow('Strategy error');
     });
 
     it('should handle JWT verification errors in middleware', () => {
@@ -271,4 +274,4 @@ describe('Auth Module Integration', () => {
       expect(result.session.expiresAt).toBeInstanceOf(Date);
     });
   });
-}); 
+});

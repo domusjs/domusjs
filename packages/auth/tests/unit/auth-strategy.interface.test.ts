@@ -12,7 +12,7 @@ describe('AuthStrategy Interface', () => {
 
       const strategy = new SimpleStrategy();
       const result = await strategy.login('valid');
-      
+
       expect(result).toBe(true);
     });
 
@@ -65,7 +65,7 @@ describe('AuthStrategy Interface', () => {
       class AsyncStrategy implements AuthStrategy<{ id: string }, { processed: boolean }> {
         async login(payload: { id: string }): Promise<{ processed: boolean }> {
           // Simulate async operation
-          await new Promise(resolve => setTimeout(resolve, 10));
+          await new Promise((resolve) => setTimeout(resolve, 10));
           return { processed: true };
         }
       }
@@ -101,7 +101,7 @@ describe('AuthStrategy Interface', () => {
 
       const StrategyClass: StrategyClass<string, number> = TestStrategy;
       const strategy = new StrategyClass(2);
-      
+
       expect(strategy).toBeInstanceOf(TestStrategy);
     });
 
@@ -113,15 +113,15 @@ describe('AuthStrategy Interface', () => {
         ) {}
 
         async login(payload: { value: number }): Promise<{ result: number }> {
-          const result = this.operation === 'add' 
-            ? payload.value + this.operand
-            : payload.value * this.operand;
-          
+          const result =
+            this.operation === 'add' ? payload.value + this.operand : payload.value * this.operand;
+
           return { result };
         }
       }
 
-      const StrategyClass: StrategyClass<{ value: number }, { result: number }> = ConfigurableStrategy;
+      const StrategyClass: StrategyClass<{ value: number }, { result: number }> =
+        ConfigurableStrategy;
       const addStrategy = new StrategyClass('add', 5);
       const multiplyStrategy = new StrategyClass('multiply', 3);
 
@@ -139,13 +139,13 @@ describe('AuthStrategy Interface', () => {
             return payload.length > 0;
           }
         })(),
-        
+
         new (class implements AuthStrategy<number, string> {
           async login(payload: number): Promise<string> {
             return `Number: ${payload}`;
           }
         })(),
-        
+
         new (class implements AuthStrategy<{ id: string }, { token: string }> {
           async login(payload: { id: string }): Promise<{ token: string }> {
             return { token: `token-${payload.id}` };
@@ -154,7 +154,7 @@ describe('AuthStrategy Interface', () => {
       ];
 
       expect(strategies).toHaveLength(3);
-      expect(strategies.every(s => typeof s.login === 'function')).toBe(true);
+      expect(strategies.every((s) => typeof s.login === 'function')).toBe(true);
     });
 
     it('should maintain type safety with generics', async () => {
@@ -295,4 +295,4 @@ describe('AuthStrategy Interface', () => {
       expect(result.permissions).toContain('admin');
     });
   });
-}); 
+});

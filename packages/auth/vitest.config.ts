@@ -9,13 +9,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'dist/',
-        'tests/',
-        '**/*.d.ts',
-        'src/index.ts',
-      ],
+      exclude: ['node_modules/', 'dist/', 'tests/', '**/*.d.ts', 'src/index.ts'],
     },
   },
   resolve: {
@@ -23,4 +17,4 @@ export default defineConfig({
       '@domusjs/core': resolve(__dirname, '../core/src'),
     },
   },
-}); 
+});

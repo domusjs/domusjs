@@ -32,7 +32,6 @@
     "eslint-plugin-prettier": "^5.2.6",
     "eslint-plugin-unused-imports": "^4.1.4",
     "lefthook": "^1.11.11",
-    "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
@@ -43,11 +42,5 @@
   "dependencies": {
     "@types/express": "^5.0.1",
     "express": "^5.1.0"
-  },
-  "lint-staged": {
-    "*.{js,ts}": [
-      "eslint --fix",
-      "prettier --write"
-    ]
   }
 }
