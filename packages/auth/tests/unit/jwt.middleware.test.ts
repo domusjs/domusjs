@@ -1,9 +1,10 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { Request, Response, NextFunction } from 'express';
 import { container } from 'tsyringe';
+import { UnauthorizedError } from '@domusjs/core';
+
 import { jwtAuthMiddleware } from '../../src/jwt/jwt.middleware';
 import { JWTService } from '../../src/jwt/jwt.service';
-import { UnauthorizedError } from '@domusjs/core';
 
 describe('jwtAuthMiddleware', () => {
   let mockRequest: Partial<Request>;

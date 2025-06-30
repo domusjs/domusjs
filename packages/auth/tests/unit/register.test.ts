@@ -1,9 +1,10 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { container } from 'tsyringe';
+
 import { registerAuthModule, JWTConfig } from '../../src/register';
 import { JWTService } from '../../src/jwt/jwt.service';
 import { AuthService } from '../../src/auth.service';
-import { AuthStrategy, StrategyClass } from '../../src/auth-strategy.interface';
+import { AuthStrategy } from '../../src/auth-strategy.interface';
 
 // Mock strategy classes for testing
 class MockStrategy1 implements AuthStrategy<{ username: string }, { token: string }> {

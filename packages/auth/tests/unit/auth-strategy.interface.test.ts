@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+
 import { AuthStrategy, StrategyClass } from '../../src/auth-strategy.interface';
 
 describe('AuthStrategy Interface', () => {

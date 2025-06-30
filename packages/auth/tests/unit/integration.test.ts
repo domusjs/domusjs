@@ -1,11 +1,12 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { container } from 'tsyringe';
+import { Request, Response, NextFunction } from 'express';
+
 import { registerAuthModule, JWTConfig } from '../../src/register';
 import { AuthService } from '../../src/auth.service';
 import { JWTService } from '../../src/jwt/jwt.service';
 import { jwtAuthMiddleware } from '../../src/jwt/jwt.middleware';
 import { AuthStrategy } from '../../src/auth-strategy.interface';
-import { Request, Response, NextFunction } from 'express';
 
 // Mock strategy for integration testing
 class IntegrationTestStrategy

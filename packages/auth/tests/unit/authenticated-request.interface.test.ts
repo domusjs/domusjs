@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { Request } from 'express';
+
 import { AuthenticatedRequest } from '../../src/jwt/authenticated-request.interface';
 
 describe('AuthenticatedRequest Interface', () => {

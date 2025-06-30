@@ -1,8 +1,9 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { JWTService } from '../../src/jwt/jwt.service';
 import jwt from 'jsonwebtoken';
-import { registerAuthModule } from '../../src/register';
 import type { MockInstance } from 'vitest';
+
+import { JWTService } from '../../src/jwt/jwt.service';
+import { registerAuthModule } from '../../src/register';
 
 describe('JWTService', () => {
   let jwtService: JWTService;
