@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
+
 import { OpenTelemetryLogger } from '../../src/logging/OpenTelemetryLogger';
 
 // Simple mocks without complex hoisting
@@ -39,4 +40,4 @@ describe('OpenTelemetryLogger', () => {
     expect(typeof logger.error).toBe('function');
     expect(typeof logger.debug).toBe('function');
   });
-}); 
+});

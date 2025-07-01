@@ -4,4 +4,4 @@ export const mockTrace = { getSpan: vi.fn() };
 export const mockContext = { active: vi.fn() };
 
 export const context = mockContext;
-export const trace = mockTrace; 
+export const trace = mockTrace;
