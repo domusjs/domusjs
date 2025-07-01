@@ -7,22 +7,26 @@ This directory contains the comprehensive test suite for the `@domusjs/cron` pac
 ### Files
 
 - **`cron.scheduler.test.ts`** - Tests for the `CronScheduler` class
+
   - Job registration functionality
   - Job scheduling and execution
   - Multiple job handling
   - Edge cases and error scenarios
 
 - **`register.test.ts`** - Tests for the `registerCronModule` function
+
   - Dependency injection registration
   - Container integration
   - Registration strategy validation
 
 - **`start.test.ts`** - Tests for the `startSchedulers` function
+
   - Scheduler resolution from container
   - Start functionality
   - Error handling
 
 - **`integration.test.ts`** - End-to-end integration tests
+
   - Complete workflow testing
   - Multiple job scenarios
   - Error handling in real scenarios
@@ -72,6 +76,7 @@ pnpm vitest integration.test.ts
 The test suite covers:
 
 - ✅ **CronScheduler Class**
+
   - Job registration
   - Job scheduling
   - Task execution
@@ -79,11 +84,13 @@ The test suite covers:
   - Empty job list scenarios
 
 - ✅ **Registration Module**
+
   - Container registration
   - Dependency injection setup
   - Registration strategy validation
 
 - ✅ **Start Module**
+
   - Scheduler resolution
   - Start functionality
   - Error handling
@@ -133,4 +140,4 @@ Run tests in debug mode for more verbose output:
 
 ```bash
 pnpm vitest --reporter=verbose
-``` 
+```

@@ -1,12 +1,13 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import cron from 'node-cron';
+
 import { CronScheduler } from '../src/cron.scheduler';
 
 // Mock node-cron
 vi.mock('node-cron', () => ({
   default: {
-    schedule: vi.fn()
-  }
+    schedule: vi.fn(),
+  },
 }));
 
 describe('CronScheduler', () => {
@@ -27,7 +28,7 @@ describe('CronScheduler', () => {
       const job = {
         schedule: '0 0 * * *',
         name: 'daily-job',
-        task: vi.fn()
+        task: vi.fn(),
       };
 
       scheduler.register(job);
@@ -42,13 +43,13 @@ describe('CronScheduler', () => {
       const job1 = {
         schedule: '0 0 * * *',
         name: 'daily-job',
-        task: vi.fn()
+        task: vi.fn(),
       };
 
       const job2 = {
         schedule: '0 */6 * * *',
         name: 'every-6-hours',
-        task: vi.fn()
+        task: vi.fn(),
       };
 
       scheduler.register(job1);
@@ -64,7 +65,7 @@ describe('CronScheduler', () => {
       const job = {
         schedule: '*/5 * * * *', // Every 5 minutes
         name: 'every-5-minutes',
-        task: vi.fn()
+        task: vi.fn(),
       };
 
       scheduler.register(job);
@@ -80,13 +81,13 @@ describe('CronScheduler', () => {
       const job1 = {
         schedule: '0 0 * * *',
         name: 'daily-job',
-        task: vi.fn()
+        task: vi.fn(),
       };
 
       const job2 = {
         schedule: '0 */6 * * *',
         name: 'every-6-hours',
-        task: vi.fn()
+        task: vi.fn(),
       };
 
       scheduler.register(job1);
@@ -104,7 +105,7 @@ describe('CronScheduler', () => {
       const job = {
         schedule: '0 0 * * *',
         name: 'daily-job',
-        task: mockTask
+        task: mockTask,
       };
 
       scheduler.register(job);
@@ -130,7 +131,7 @@ describe('CronScheduler', () => {
       const job = {
         schedule: '*/1 * * * *', // Every minute
         name: 'every-minute',
-        task: mockTask
+        task: mockTask,
       };
 
       scheduler.register(job);
@@ -152,13 +153,13 @@ describe('CronScheduler', () => {
       const job1 = {
         schedule: '0 0 * * *',
         name: 'daily-job',
-        task: vi.fn()
+        task: vi.fn(),
       };
 
       const job2 = {
         schedule: '0 */6 * * *',
         name: 'every-6-hours',
-        task: vi.fn()
+        task: vi.fn(),
       };
 
       // Register jobs
@@ -176,4 +177,4 @@ describe('CronScheduler', () => {
       expect(mockCronSchedule).toHaveBeenCalledTimes(2);
     });
   });
-}); 
+});

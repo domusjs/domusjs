@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { container } from 'tsyringe';
 import cron from 'node-cron';
+
 import { registerCronModule } from '../src/register';
 import { startSchedulers } from '../src/start';
 import { CronScheduler } from '../src/cron.scheduler';
@@ -8,16 +9,16 @@ import { CronScheduler } from '../src/cron.scheduler';
 // Mock node-cron
 vi.mock('node-cron', () => ({
   default: {
-    schedule: vi.fn()
-  }
+    schedule: vi.fn(),
+  },
 }));
 
 // Mock tsyringe container
 vi.mock('tsyringe', () => ({
   container: {
     register: vi.fn(),
-    resolve: vi.fn()
-  }
+    resolve: vi.fn(),
+  },
 }));
 
 describe('Cron Module Integration', () => {
@@ -40,7 +41,7 @@ describe('Cron Module Integration', () => {
 
       // Verify registration
       expect(mockContainerRegister).toHaveBeenCalledWith('CronScheduler', {
-        useValue: expect.any(CronScheduler)
+        useValue: expect.any(CronScheduler),
       });
 
       // Get the registered scheduler instance
@@ -65,7 +66,7 @@ describe('Cron Module Integration', () => {
       const testJob = {
         schedule: '0 0 * * *',
         name: 'test-job',
-        task: mockTask
+        task: mockTask,
       };
 
       scheduler.register(testJob);
@@ -101,13 +102,13 @@ describe('Cron Module Integration', () => {
       const job1 = {
         schedule: '0 0 * * *',
         name: 'daily-job',
-        task: mockTask1
+        task: mockTask1,
       };
 
       const job2 = {
         schedule: '0 */6 * * *',
         name: 'every-6-hours',
-        task: mockTask2
+        task: mockTask2,
       };
 
       scheduler.register(job1);
@@ -171,4 +172,4 @@ describe('Cron Module Integration', () => {
       expect(startSchedulers).toBeDefined();
     });
   });
-}); 
+});

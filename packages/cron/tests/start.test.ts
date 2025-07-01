@@ -1,26 +1,27 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { container } from 'tsyringe';
+
 import { startSchedulers } from '../src/start';
 import { CronScheduler } from '../src/cron.scheduler';
 
 // Mock tsyringe container
 vi.mock('tsyringe', () => ({
   container: {
-    resolve: vi.fn()
-  }
+    resolve: vi.fn(),
+  },
 }));
 
 // Mock CronScheduler
 vi.mock('../src/cron.scheduler', () => ({
   CronScheduler: vi.fn().mockImplementation(() => ({
-    startAll: vi.fn()
-  }))
+    startAll: vi.fn(),
+  })),
 }));
 
 describe('startSchedulers', () => {
   const mockContainerResolve = vi.mocked(container.resolve);
   const mockScheduler = {
-    startAll: vi.fn()
+    startAll: vi.fn(),
   };
 
   beforeEach(() => {
@@ -66,4 +67,4 @@ describe('startSchedulers', () => {
 
     expect(() => startSchedulers()).not.toThrow();
   });
-}); 
+});

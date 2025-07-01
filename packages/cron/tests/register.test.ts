@@ -1,13 +1,14 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { container } from 'tsyringe';
+
 import { registerCronModule } from '../src/register';
 import { CronScheduler } from '../src/cron.scheduler';
 
 // Mock tsyringe container
 vi.mock('tsyringe', () => ({
   container: {
-    register: vi.fn()
-  }
+    register: vi.fn(),
+  },
 }));
 
 describe('registerCronModule', () => {
@@ -25,7 +26,7 @@ describe('registerCronModule', () => {
     registerCronModule();
 
     expect(mockContainerRegister).toHaveBeenCalledWith('CronScheduler', {
-      useValue: expect.any(CronScheduler)
+      useValue: expect.any(CronScheduler),
     });
   });
 
@@ -47,7 +48,7 @@ describe('registerCronModule', () => {
 
     const registrationCall = mockContainerRegister.mock.calls[0];
     const registeredValue = (registrationCall[1] as any).useValue;
-    
+
     expect(registeredValue).toBeInstanceOf(CronScheduler);
   });
 
@@ -63,4 +64,4 @@ describe('registerCronModule', () => {
 
     expect(mockContainerRegister).toHaveBeenCalledTimes(2);
   });
-}); 
+});
