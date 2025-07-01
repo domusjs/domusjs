@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { BcryptHasher } from '../../src/hashing/bcrypt-hasher';
 import bcryptjs from 'bcryptjs';
+
+import { BcryptHasher } from '../../src/hashing/bcrypt-hasher';
 
 vi.mock('bcryptjs');
 
@@ -18,11 +19,11 @@ describe('BcryptHasher', () => {
     it('should hash a password', async () => {
       const password = 'testpassword';
       const hashedPassword = '$2a$10$hashedpassword';
-      
+
       mockedBcryptjs.hash.mockResolvedValue(hashedPassword);
-      
+
       const result = await hasher.hash(password);
-      
+
       expect(mockedBcryptjs.hash).toHaveBeenCalledWith(password, 10);
       expect(result).toBe(hashedPassword);
     });
@@ -32,11 +33,11 @@ describe('BcryptHasher', () => {
     it('should return true for matching password and hash', async () => {
       const password = 'testpassword';
       const hash = '$2a$10$hashedpassword';
-      
+
       mockedBcryptjs.compare.mockResolvedValue(true);
-      
+
       const result = await hasher.compare(password, hash);
-      
+
       expect(mockedBcryptjs.compare).toHaveBeenCalledWith(password, hash);
       expect(result).toBe(true);
     });
@@ -44,13 +45,13 @@ describe('BcryptHasher', () => {
     it('should return false for non-matching password and hash', async () => {
       const password = 'wrongpassword';
       const hash = '$2a$10$hashedpassword';
-      
+
       mockedBcryptjs.compare.mockResolvedValue(false);
-      
+
       const result = await hasher.compare(password, hash);
-      
+
       expect(mockedBcryptjs.compare).toHaveBeenCalledWith(password, hash);
       expect(result).toBe(false);
     });
   });
-}); 
+});
