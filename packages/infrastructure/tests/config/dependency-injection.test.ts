@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { container } from 'tsyringe';
-import { CommandBus, QueryBus, EventBus, Logger } from '@domusjs/core';
+
 import { registerDomusCore, DomusOverrides } from '../../src/config/dependency-injection';
 import { InMemoryCommandBus } from '../../src/bus/command-bus/in-memory-command-bus';
 import { InMemoryQueryBus } from '../../src/bus/query-bus/in-memory-query-bus';
@@ -49,7 +49,7 @@ describe('registerDomusCore', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    
+
     // Setup mock instances
     const mockCommandBusInstance = {};
     const mockQueryBusInstance = {};
@@ -71,7 +71,7 @@ describe('registerDomusCore', () => {
       registerDomusCore();
 
       expect(mockContainerRegister).toHaveBeenCalledTimes(4);
-      
+
       // Check CommandBus registration
       expect(mockContainerRegister).toHaveBeenCalledWith('CommandBus', {
         useValue: expect.any(Object),
@@ -106,7 +106,7 @@ describe('registerDomusCore', () => {
       registerDomusCore();
 
       const calls = mockContainerRegister.mock.calls;
-      const tokens = calls.map(call => call[0]);
+      const tokens = calls.map((call) => call[0]);
 
       expect(tokens).toContain('CommandBus');
       expect(tokens).toContain('QueryBus');
@@ -212,7 +212,7 @@ describe('registerDomusCore', () => {
       const customQueryBus = { custom: 'query-bus' } as any;
       const customEventBus = { custom: 'event-bus' } as any;
       const customLogger = { custom: 'logger' } as any;
-      
+
       const overrides: DomusOverrides = {
         commandBus: customCommandBus,
         queryBus: customQueryBus,
@@ -270,12 +270,12 @@ describe('registerDomusCore', () => {
       registerDomusCore();
 
       const calls = mockContainerRegister.mock.calls;
-      
+
       // Verify all services are registered
       expect(calls).toHaveLength(4);
-      
+
       // Verify tokens are registered
-      const tokens = calls.map(call => call[0]);
+      const tokens = calls.map((call) => call[0]);
       expect(tokens).toEqual(['CommandBus', 'QueryBus', 'EventBus', 'Logger']);
     });
 
@@ -291,4 +291,4 @@ describe('registerDomusCore', () => {
       expect(mockPinoLogger).toHaveBeenCalledTimes(2);
     });
   });
-}); 
+});

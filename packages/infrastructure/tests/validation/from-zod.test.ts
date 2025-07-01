@@ -1,6 +1,7 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import { ValidationError } from '@domusjs/core';
+
 import { fromZod } from '../../src/validation/from-zod';
 
 describe('fromZod', () => {
@@ -64,10 +65,12 @@ describe('fromZod', () => {
             email: z.string().email(),
           }),
         }),
-        settings: z.array(z.object({
-          key: z.string(),
-          value: z.union([z.string(), z.number(), z.boolean()]),
-        })),
+        settings: z.array(
+          z.object({
+            key: z.string(),
+            value: z.union([z.string(), z.number(), z.boolean()]),
+          })
+        ),
       });
       const validator = fromZod(schema);
 
@@ -207,4 +210,4 @@ describe('fromZod', () => {
       expect(result).toEqual({ name: 'John' });
     });
   });
-}); 
+});

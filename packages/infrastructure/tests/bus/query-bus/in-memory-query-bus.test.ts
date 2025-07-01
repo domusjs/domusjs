@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { container } from 'tsyringe';
+
 import { InMemoryQueryBus } from '../../../src/bus/query-bus/in-memory-query-bus';
-import { QueryBus, Query, QueryHandler } from '@domusjs/core';
 
 // Mock tsyringe container
 vi.mock('tsyringe', () => ({
@@ -51,9 +51,7 @@ describe('InMemoryQueryBus', () => {
       const mockHandlerClass2 = vi.fn(() => mockHandler2);
       const mockQueryClass = { TYPE: 'same-query' };
 
-      mockContainerResolve
-        .mockReturnValueOnce(mockHandler1)
-        .mockReturnValueOnce(mockHandler2);
+      mockContainerResolve.mockReturnValueOnce(mockHandler1).mockReturnValueOnce(mockHandler2);
 
       queryBus.register(mockQueryClass, mockHandlerClass1);
       queryBus.register(mockQueryClass, mockHandlerClass2);
@@ -86,7 +84,9 @@ describe('InMemoryQueryBus', () => {
     });
 
     it('should handle handler execution errors', async () => {
-      const mockHandler = { execute: vi.fn().mockRejectedValue(new Error('Handler execution failed')) };
+      const mockHandler = {
+        execute: vi.fn().mockRejectedValue(new Error('Handler execution failed')),
+      };
       const mockHandlerClass = vi.fn(() => mockHandler);
       const mockQueryClass = { TYPE: 'test-query' };
       const mockQuery = { type: 'test-query', data: { test: 'data' } };
@@ -115,4 +115,4 @@ describe('InMemoryQueryBus', () => {
       expect(result).toBe('success');
     });
   });
-}); 
+});

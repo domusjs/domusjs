@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { RabbitMQEventBus } from '../../../src/bus/event-bus/rabbitmq/rabbitmq-event-bus';
 import { DomainEvent, EventHandler, Logger } from '@domusjs/core';
+
+import { RabbitMQEventBus } from '../../../src/bus/event-bus/rabbitmq/rabbitmq-event-bus';
 
 // Mocks
 const mockChannel = {
@@ -74,8 +75,14 @@ describe('RabbitMQEventBus', () => {
       const event = new TestEvent('payload');
       await eventBus.publish([event]);
       expect(mockClient.connect).toHaveBeenCalled();
-      expect(mockChannel.assertExchange).toHaveBeenCalledWith('test-exchange', 'topic', { durable: true });
-      expect(mockChannel.publish).toHaveBeenCalledWith('test-exchange', 'test-event', Buffer.from(JSON.stringify(event)));
+      expect(mockChannel.assertExchange).toHaveBeenCalledWith('test-exchange', 'topic', {
+        durable: true,
+      });
+      expect(mockChannel.publish).toHaveBeenCalledWith(
+        'test-exchange',
+        'test-event',
+        Buffer.from(JSON.stringify(event))
+      );
     });
   });
 
@@ -91,7 +98,9 @@ describe('RabbitMQEventBus', () => {
       });
       class TestEvent implements DomainEvent {
         static TYPE = 'test-event';
-        static fromJSON = vi.fn().mockReturnValue({ type: 'test-event', occurredAt: new Date(), foo: 'bar' });
+        static fromJSON = vi
+          .fn()
+          .mockReturnValue({ type: 'test-event', occurredAt: new Date(), foo: 'bar' });
         type = TestEvent.TYPE;
         occurredAt = new Date();
         foo = 'bar';
@@ -102,7 +111,9 @@ describe('RabbitMQEventBus', () => {
       // Simulate message received
       await consumeCallback(fakeMsg);
       expect(TestEvent.fromJSON).toHaveBeenCalledWith({ type: 'test-event', foo: 'bar' });
-      expect(handler.handle).toHaveBeenCalledWith(expect.objectContaining({ type: 'test-event', foo: 'bar' }));
+      expect(handler.handle).toHaveBeenCalledWith(
+        expect.objectContaining({ type: 'test-event', foo: 'bar' })
+      );
       expect(mockChannel.ack).toHaveBeenCalledWith(fakeMsg);
     });
     it('should warn if no EventClass is registered for the event type', async () => {
@@ -115,7 +126,9 @@ describe('RabbitMQEventBus', () => {
       });
       await eventBus.subscribe();
       consumeCallback(fakeMsg);
-      expect(mockLogger.warn).toHaveBeenCalledWith('No EventClass registered for type "unknown-event"');
+      expect(mockLogger.warn).toHaveBeenCalledWith(
+        'No EventClass registered for type "unknown-event"'
+      );
       expect(mockChannel.ack).toHaveBeenCalledWith(fakeMsg);
     });
     it('should warn if no handlers are registered for the event type', async () => {
@@ -137,7 +150,9 @@ describe('RabbitMQEventBus', () => {
       });
       await eventBus.subscribe();
       consumeCallback(fakeMsg);
-      expect(mockLogger.warn).toHaveBeenCalledWith('No handlers registered for event type "test-event"');
+      expect(mockLogger.warn).toHaveBeenCalledWith(
+        'No handlers registered for event type "test-event"'
+      );
       expect(mockChannel.ack).toHaveBeenCalledWith(fakeMsg);
     });
     it('should log error and ack if handler throws', async () => {
@@ -147,7 +162,9 @@ describe('RabbitMQEventBus', () => {
         type = TestEvent.TYPE;
         occurredAt = new Date();
       }
-      const handler: EventHandler<TestEvent> = { handle: vi.fn().mockRejectedValue(new Error('fail')) };
+      const handler: EventHandler<TestEvent> = {
+        handle: vi.fn().mockRejectedValue(new Error('fail')),
+      };
       eventBus.register(TestEvent, handler);
       const fakeMsg = {
         content: Buffer.from(JSON.stringify({ type: 'test-event' })),
@@ -164,4 +181,4 @@ describe('RabbitMQEventBus', () => {
       expect(mockChannel.ack).toHaveBeenCalledWith(fakeMsg);
     });
   });
-}); 
+});

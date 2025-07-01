@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { InMemoryEventBus } from '../../../src/bus/event-bus/in-memory-event-bus';
 import { DomainEvent, EventHandler } from '@domusjs/core';
+
+import { InMemoryEventBus } from '../../../src/bus/event-bus/in-memory-event-bus';
 
 describe('InMemoryEventBus', () => {
   let eventBus: InMemoryEventBus;
@@ -141,4 +142,4 @@ describe('InMemoryEventBus', () => {
       expect(deletedHandler.handle).toHaveBeenCalledWith(deletedEvent);
     });
   });
-}); 
+});

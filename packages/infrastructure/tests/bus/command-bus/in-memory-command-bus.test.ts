@@ -1,9 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { container } from 'tsyringe';
+
 import { InMemoryCommandBus } from '../../../src/bus/command-bus/in-memory-command-bus';
-import { CommandBus } from '@domusjs/core';
-import { Command } from '@domusjs/core';
-import { CommandHandler } from '@domusjs/core';
 
 // Mock tsyringe container
 vi.mock('tsyringe', () => ({
@@ -56,9 +54,7 @@ describe('InMemoryCommandBus', () => {
       const mockCommandClass1 = { TYPE: 'command-1' };
       const mockCommandClass2 = { TYPE: 'command-2' };
 
-      mockContainerResolve
-        .mockReturnValueOnce(mockHandler1)
-        .mockReturnValueOnce(mockHandler2);
+      mockContainerResolve.mockReturnValueOnce(mockHandler1).mockReturnValueOnce(mockHandler2);
 
       commandBus.register(mockCommandClass1, mockHandlerClass1);
       commandBus.register(mockCommandClass2, mockHandlerClass2);
@@ -75,9 +71,7 @@ describe('InMemoryCommandBus', () => {
       const mockHandlerClass2 = vi.fn(() => mockHandler2);
       const mockCommandClass = { TYPE: 'same-command' };
 
-      mockContainerResolve
-        .mockReturnValueOnce(mockHandler1)
-        .mockReturnValueOnce(mockHandler2);
+      mockContainerResolve.mockReturnValueOnce(mockHandler1).mockReturnValueOnce(mockHandler2);
 
       commandBus.register(mockCommandClass, mockHandlerClass1);
       commandBus.register(mockCommandClass, mockHandlerClass2);
@@ -95,7 +89,9 @@ describe('InMemoryCommandBus', () => {
         throw error;
       });
 
-      expect(() => commandBus.register(mockCommandClass, mockHandlerClass)).toThrow('Container resolution failed');
+      expect(() => commandBus.register(mockCommandClass, mockHandlerClass)).toThrow(
+        'Container resolution failed'
+      );
     });
   });
 
@@ -169,9 +165,7 @@ describe('InMemoryCommandBus', () => {
       const mockCommandClass1 = { TYPE: 'command-1' };
       const mockCommandClass2 = { TYPE: 'command-2' };
 
-      mockContainerResolve
-        .mockReturnValueOnce(mockHandler1)
-        .mockReturnValueOnce(mockHandler2);
+      mockContainerResolve.mockReturnValueOnce(mockHandler1).mockReturnValueOnce(mockHandler2);
 
       commandBus.register(mockCommandClass1, mockHandlerClass1);
       commandBus.register(mockCommandClass2, mockHandlerClass2);
@@ -239,7 +233,7 @@ describe('InMemoryCommandBus', () => {
     it('should handle concurrent command dispatches', async () => {
       const mockHandler = {
         execute: vi.fn().mockImplementation(async (command) => {
-          await new Promise(resolve => setTimeout(resolve, 10));
+          await new Promise((resolve) => setTimeout(resolve, 10));
           return `processed-${command.data.id}`;
         }),
       };
@@ -256,12 +250,10 @@ describe('InMemoryCommandBus', () => {
         { type: 'process-item', data: { id: 3 } },
       ];
 
-      const results = await Promise.all(
-        commands.map(command => commandBus.dispatch(command))
-      );
+      const results = await Promise.all(commands.map((command) => commandBus.dispatch(command)));
 
       expect(results).toEqual(['processed-1', 'processed-2', 'processed-3']);
       expect(mockHandler.execute).toHaveBeenCalledTimes(3);
     });
   });
-}); 
+});

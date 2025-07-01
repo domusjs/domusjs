@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import pino from 'pino';
+
 import { PinoLogger } from '../../src/logger/pino-logger';
 
 // Mock pino
@@ -88,11 +89,11 @@ describe('PinoLogger', () => {
 
     it('should handle error with additional context', () => {
       const message = 'Database connection failed';
-      const meta = { 
+      const meta = {
         errorCode: 'DB_CONNECTION_ERROR',
         host: 'localhost',
         port: 5432,
-        retryCount: 3
+        retryCount: 3,
       };
 
       logger.error(message, meta);
@@ -121,10 +122,10 @@ describe('PinoLogger', () => {
 
     it('should handle warning with context', () => {
       const message = 'API rate limit approaching';
-      const meta = { 
+      const meta = {
         currentUsage: 950,
         limit: 1000,
-        resetTime: '2024-01-01T00:00:00Z'
+        resetTime: '2024-01-01T00:00:00Z',
       };
 
       logger.warn(message, meta);
@@ -153,12 +154,12 @@ describe('PinoLogger', () => {
 
     it('should handle debug with detailed context', () => {
       const message = 'Processing user request';
-      const meta = { 
+      const meta = {
         requestId: 'req-123',
         method: 'POST',
         path: '/api/users',
         duration: 150,
-        memoryUsage: '45MB'
+        memoryUsage: '45MB',
       };
 
       logger.debug(message, meta);
@@ -185,21 +186,21 @@ describe('PinoLogger', () => {
         user: {
           id: 'user-123',
           email: 'user@example.com',
-          roles: ['admin', 'user']
+          roles: ['admin', 'user'],
         },
         request: {
           method: 'POST',
           url: '/api/data',
           headers: {
             'content-type': 'application/json',
-            'authorization': 'Bearer token'
-          }
+            authorization: 'Bearer token',
+          },
         },
         performance: {
           startTime: Date.now(),
           duration: 125,
-          memoryUsage: process.memoryUsage()
-        }
+          memoryUsage: process.memoryUsage(),
+        },
       };
 
       logger.info('Complex request processed', complexMeta);
@@ -215,4 +216,4 @@ describe('PinoLogger', () => {
       expect(mockPinoInstance.error).toHaveBeenCalledWith({}, 'Message with undefined meta');
     });
   });
-}); 
+});

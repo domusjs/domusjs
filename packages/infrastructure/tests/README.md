@@ -7,21 +7,25 @@ This directory contains the comprehensive test suite for the `@domusjs/infrastru
 ### Files
 
 - **`validation/from-zod.test.ts`** - Tests for the Zod validation integration
+
   - Schema validation functionality
   - Error handling and validation details
   - Edge cases and complex schemas
 
 - **`logger/pino-logger.test.ts`** - Tests for the PinoLogger class
+
   - Logging functionality across all levels
   - Metadata handling
   - Pino configuration and integration
 
 - **`config/dependency-injection.test.ts`** - Tests for the DI configuration
+
   - Service registration with defaults
   - Override functionality
   - Container integration
 
 - **`bus/command-bus/in-memory-command-bus.test.ts`** - Tests for the command bus
+
   - Command handler registration
   - Command dispatch functionality
   - Error handling and edge cases
@@ -73,18 +77,21 @@ pnpm vitest bus/command-bus/in-memory-command-bus.test.ts
 The test suite covers:
 
 - ✅ **Validation Module**
+
   - Zod schema validation
   - Error handling with ValidationError
   - Complex nested schemas
   - Edge cases and type safety
 
 - ✅ **Logger Module**
+
   - PinoLogger implementation
   - All log levels (info, error, warn, debug)
   - Metadata handling
   - Pino configuration
 
 - ✅ **Dependency Injection**
+
   - Service registration with defaults
   - Override functionality
   - Container integration
@@ -127,6 +134,7 @@ When adding new functionality to the infrastructure package:
 ### Validation Testing
 
 Validation tests focus on:
+
 - Schema validation success cases
 - Error handling with proper error types
 - Complex nested object validation
@@ -135,6 +143,7 @@ Validation tests focus on:
 ### Logger Testing
 
 Logger tests focus on:
+
 - All log level methods
 - Metadata handling
 - Pino configuration
@@ -143,6 +152,7 @@ Logger tests focus on:
 ### Command Bus Testing
 
 Command bus tests focus on:
+
 - Handler registration and resolution
 - Command dispatch functionality
 - Error handling for missing handlers
@@ -151,6 +161,7 @@ Command bus tests focus on:
 ### Dependency Injection Testing
 
 DI tests focus on:
+
 - Default service registration
 - Override functionality
 - Container integration
@@ -181,4 +192,4 @@ Generate coverage reports to identify untested code:
 pnpm test:coverage
 ```
 
-This will generate HTML coverage reports in the `coverage/` directory. 
+This will generate HTML coverage reports in the `coverage/` directory.
