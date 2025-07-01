@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+
 import { DomusWorker } from '../../src/queue/domus-worker';
-import { Job as DomusJob } from '../../src/core/job.interface';
 
 const mockOn = vi.fn();
 const mockClose = vi.fn();
@@ -47,11 +47,14 @@ describe('DomusWorker', () => {
     const result = 42;
     const handler = mockOn.mock.calls[0][1];
     handler(job, result);
-    expect(callback).toHaveBeenCalledWith(expect.objectContaining({ id: '2', name: 'bar' }), result);
+    expect(callback).toHaveBeenCalledWith(
+      expect.objectContaining({ id: '2', name: 'bar' }),
+      result
+    );
   });
 
   it('should close the worker', async () => {
     await worker.close();
     expect(mockClose).toHaveBeenCalled();
   });
-}); 
+});

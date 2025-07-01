@@ -1,8 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { Queue, Worker } from 'bullmq';
+
 import { DomusJobClient } from '../../src/queue/domus-client';
-import { DomusQueue } from '../../src/queue/domus-queue';
-import { DomusWorker } from '../../src/queue/domus-worker';
 import { JobTask } from '../../src/queue/job-task';
 
 const mockQueueInstance = { name: 'test-queue' };
@@ -48,49 +47,65 @@ describe('DomusJobClient', () => {
   it('should create a DomusWorker with job mapping', () => {
     class MyJob extends JobTask {
       static jobName = 'my-job';
-      async execute() { return 1; }
+      async execute() {
+        return 1;
+      }
     }
     const queue = { name: 'foo' } as any;
     const jobs = [MyJob];
     const worker = client.createWorker(queue, jobs);
     expect(worker).toHaveProperty('__isDomusWorker', true);
-    expect(Worker).toHaveBeenCalledWith(
-      'foo',
-      expect.any(Function),
-      { connection: mockConnection }
-    );
+    expect(Worker).toHaveBeenCalledWith('foo', expect.any(Function), {
+      connection: mockConnection,
+    });
   });
 
   it('should throw if job class is missing static jobName', () => {
     class BadJob extends JobTask {
-      async execute() { return 0; }
+      async execute() {
+        return 0;
+      }
     }
     const queue = { name: 'foo' } as any;
-    expect(() => client.createWorker(queue, [BadJob])).toThrow('Job class BadJob missing static jobName');
+    expect(() => client.createWorker(queue, [BadJob])).toThrow(
+      'Job class BadJob missing static jobName'
+    );
   });
 
   it('should throw if no job class found for job', async () => {
     class MyJob extends JobTask {
       static jobName = 'my-job';
-      async execute() { return 1; }
+      async execute() {
+        return 1;
+      }
     }
     const queue = { name: 'foo' } as any;
     let processFn: any;
-    (Worker as any).mockImplementation((_name: any, fn: any) => { processFn = fn; return mockWorkerInstance; });
+    (Worker as any).mockImplementation((_name: any, fn: any) => {
+      processFn = fn;
+      return mockWorkerInstance;
+    });
     client.createWorker(queue, [MyJob]);
-    await expect(processFn({ name: 'unknown-job', data: {} })).rejects.toThrow('No job class found for job: unknown-job');
+    await expect(processFn({ name: 'unknown-job', data: {} })).rejects.toThrow(
+      'No job class found for job: unknown-job'
+    );
   });
 
   it('should instantiate and execute the correct job class', async () => {
     class MyJob extends JobTask {
       static jobName = 'my-job';
-      async execute() { return 123; }
+      async execute() {
+        return 123;
+      }
     }
     const queue = { name: 'foo' } as any;
     let processFn: any;
-    (Worker as any).mockImplementation((_name: any, fn: any) => { processFn = fn; return mockWorkerInstance; });
+    (Worker as any).mockImplementation((_name: any, fn: any) => {
+      processFn = fn;
+      return mockWorkerInstance;
+    });
     client.createWorker(queue, [MyJob]);
     const result = await processFn({ name: 'my-job', data: { x: 1 } });
     expect(result).toBe(123);
   });
-}); 
+});

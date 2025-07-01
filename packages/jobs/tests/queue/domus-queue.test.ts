@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+
 import { DomusQueue } from '../../src/queue/domus-queue';
 import { JobTask } from '../../src/queue/job-task';
 
@@ -24,7 +25,9 @@ describe('DomusQueue', () => {
   it('should add a job with correct jobName and data', async () => {
     class MyJob extends JobTask {
       static jobName = 'my-job';
-      async execute() { return 42; }
+      async execute() {
+        return 42;
+      }
     }
     const job = new MyJob({ foo: 'bar' });
     await queue.add(job);
@@ -34,9 +37,11 @@ describe('DomusQueue', () => {
   it('should throw if job class is missing static jobName', async () => {
     class BadJob extends JobTask {
       // no static jobName
-      async execute() { return 0; }
+      async execute() {
+        return 0;
+      }
     }
     const job = new BadJob({ foo: 'bar' });
     await expect(queue.add(job)).rejects.toThrow('Job class is missing static jobName');
   });
-}); 
+});
