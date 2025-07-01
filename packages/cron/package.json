@@ -8,7 +8,10 @@
   ],
   "scripts": {
     "build": "tsc -b",
-    "clean": "rm -rf dist && rm -rf tsconfig.tsbuildinfo && rm -rf node_modules"
+    "clean": "rm -rf dist && rm -rf tsconfig.tsbuildinfo && rm -rf node_modules",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage"
   },
   "license": "MIT",
   "author": "Sergio Salcedo",
@@ -18,5 +21,9 @@
   },
   "peerDependencies": {
     "tsyringe": "^4.9.1"
+  },
+  "devDependencies": {
+    "vitest": "^1.0.0",
+    "@vitest/coverage-v8": "^1.0.0"
   }
 }
