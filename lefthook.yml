@@ -50,3 +50,5 @@ pre-commit:
     lint:
       glob: "**/*.{ts,tsx}"
       run: npx eslint --fix {staged_files}
+    add-fixed:
+      run: git add {staged_files}

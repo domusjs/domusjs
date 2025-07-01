@@ -9,8 +9,7 @@
   "scripts": {
     "build": "tsc -b",
     "clean": "rm -rf dist && rm -rf tsconfig.tsbuildinfo && rm -rf node_modules",
-    "test": "vitest",
-    "test:run": "vitest run",
+    "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
