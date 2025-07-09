@@ -18,7 +18,8 @@
     "build:prod": "pnpm clean && pnpm install && pnpm build --force",
     "dev": "pnpm -r run dev",
     "lint": "pnpm -r run lint",
-    "prepare": "lefthook install"
+    "prepare": "lefthook install",
+    "test": "pnpm -r run test"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.1",

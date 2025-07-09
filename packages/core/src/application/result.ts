@@ -1,19 +1,33 @@
-export type Result<T, E> = Ok<T> | Err<E>;
+export type TResult<T, E> = Ok<T> | Err<E>;
 
 export class Ok<T> {
-  readonly isOk = true;
-  readonly isErr = false;
-
   constructor(public readonly value: T) {}
+
+  // Instance methods
+  isOk(): this is Ok<T> {
+    return true;
+  }
+
+  isErr(): this is Err<never> {
+    return false;
+  }
 }
 
 export class Err<E> {
-  readonly isOk = false;
-  readonly isErr = true;
-
   constructor(public readonly error: E) {}
+
+  // Instance methods
+  isOk(): this is Ok<never> {
+    return false;
+  }
+
+  isErr(): this is Err<E> {
+    return true;
+  }
 }
 
-// Helpers
-export const ok = <T>(value: T): Result<T, never> => new Ok(value);
-export const err = <E>(error: E): Result<never, E> => new Err(error);
+// Static methods on Result type
+export namespace Result {
+  export const ok = <T>(value: T): TResult<T, never> => new Ok(value);
+  export const fail = <E>(error: E): TResult<never, E> => new Err(error);
+}
