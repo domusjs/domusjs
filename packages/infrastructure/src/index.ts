@@ -12,6 +12,7 @@ export * from './bus/query-bus/query-registration';
 export * from './bus/event-bus/in-memory-event-bus';
 export * from './bus/event-bus/middlewares/middleware-event-bus';
 export * from './bus/event-bus/middlewares/event-error-logger.middleware';
+export * from './bus/event-bus/event-registration';
 
 export * from './bus/event-bus/rabbitmq/rabbitmq-client';
 export * from './bus/event-bus/rabbitmq/rabbitmq-event-bus';
