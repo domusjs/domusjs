@@ -3,9 +3,29 @@
   <a href="https://domusjs.com/" target="blank"><img src="https://domusjs.com/domusjs_logo.png" width="120" alt="DomusJS Logo" /></a>
 </p>
 
-<p align="center">A scalable, TypeScript-first framework for real-world backend applications using Clean Architecture, CQRS, and modular design.</p>
+<p align="center">
+  <a href="https://www.npmjs.com/package/@domusjs/core"><img src="https://img.shields.io/npm/v/@domusjs/core?style=flat-square&color=blue" alt="npm version" /></a>
+  <a href="https://github.com/vssalcedo/DomusJS/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License" /></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" /></a>
+  
+</p>
 
-DomusJS provides a lightweight but powerful foundation for backend systems, focusing on **clarity**, **extensibility**, and **separation of concerns**. It encourages you to design your system with proper boundaries while offering plug-and-play modules for common needs like authentication, job queues, cron jobs, etc.
+<p align="center">
+  <strong>A modern, TypeScript-first backend framework built for scalable, enterprise-grade applications.</strong><br>
+  <em>Clean Architecture • CQRS • Domain-Driven Design • Modular Design</em>
+</p>
+
+<p align="center">
+  DomusJS provides a lightweight yet powerful foundation for building robust backend systems. 
+  It emphasizes <strong>clarity</strong>, <strong>extensibility</strong>, and <strong>separation of concerns</strong> 
+  through clean architecture principles and modular design patterns.
+</p>
+
+<p align="center">
+  Whether you're building microservices, event-driven systems, or complex enterprise applications, 
+  DomusJS gives you the building blocks to create scalable, maintainable, and testable code 
+  with plug-and-play modules for authentication, job queues, cron jobs, and more.
+</p>
 
 
 ---
