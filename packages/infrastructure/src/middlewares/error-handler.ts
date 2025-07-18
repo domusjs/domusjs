@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 import { Logger, BaseError, ValidationError } from '@domusjs/core';
 import { SpanStatusCode, trace } from '@opentelemetry/api';
 
-export const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
+export const errorHandler: ErrorRequestHandler = (err, req, res, _) => {
   const logger = container.resolve<Logger>('Logger');
 
   if (err instanceof ValidationError) {
@@ -35,7 +35,7 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
   });
 
   const span = trace.getActiveSpan();
-  
+
   if (span) {
     span.recordException(err);
     span.setStatus({ code: SpanStatusCode.ERROR, message: err.message });
@@ -47,4 +47,5 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
       message: 'Something went wrong',
     },
   });
+
 };
