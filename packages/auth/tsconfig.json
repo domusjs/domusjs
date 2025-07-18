@@ -2,12 +2,14 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
+    "rootDir": "src",
     "declaration": true,
     "declarationMap": true,
     "composite": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["src/**/*", "tests/**/*"],
+  "include": ["src/**/*"],
+  "exclude": ["tests", "**/*.test.ts"],
   "references": [{ "path": "../core" }]
 }

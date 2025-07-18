@@ -1,8 +1,5 @@
 import { container } from 'tsyringe';
-import { DomainEvent } from 'packages/core/src/domain/event';
-
-import { EventBus } from '../../../../core/src/application/bus/event-bus';
-import { EventHandler } from '../../../../core/src/application/handler';
+import { DomainEvent, EventBus, EventHandler } from '@domusjs/core';
 
 export function registerEventHandler<E extends DomainEvent>(
   eventBus: EventBus,

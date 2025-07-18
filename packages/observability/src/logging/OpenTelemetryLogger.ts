@@ -1,7 +1,7 @@
 // observability/src/logging/OpenTelemetryLogger.ts
 
 import { injectable } from 'tsyringe';
-import { Logger } from '../../../core/';
+import { Logger } from '../../../core/src';
 import { LoggerProvider, SimpleLogRecordProcessor } from '@opentelemetry/sdk-logs';
 import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-http';
 import { context, trace } from '@opentelemetry/api';

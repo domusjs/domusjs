@@ -2,10 +2,14 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
+    "rootDir": "src",
     "declaration": true,
     "declarationMap": true,
-    "composite": true
+    "composite": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
-  "include": ["src/**/*", "tests/**/*", "vitest.config.ts"],
+  "include": ["src/**/*"],
+  "exclude": ["tests", "**/*.test.ts"],
   "references": [{ "path": "../core" }, { "path": "../auth" }]
 }
