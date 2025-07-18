@@ -1,6 +1,6 @@
 
 <p align="center">
-  <a href="https://domusjs.com/" target="blank"><img src="http://localhost:4321/assets/domusjs_logo.png" width="120" alt="DomusJS Logo" /></a>
+  <a href="https://domusjs.com/" target="blank"><img src="https://domusjs.com/domusjs_logo.png" width="120" alt="DomusJS Logo" /></a>
 </p>
 
 <p align="center">A scalable, TypeScript-first framework for real-world backend applications using Clean Architecture, CQRS, and modular design.</p>
@@ -42,6 +42,7 @@ DomusJS is modular. Pick what you need:
 
 ## 🚀 Getting Started
 
+To get started, check out the [Official Documentation](https://docs.domusjs.com/getting-started/introduction).
 
 ---
 
@@ -105,6 +106,14 @@ DomusJS exists for developers who:
 ## ❤️ Contribute
 
 DomusJS is built with simplicity and extensibility in mind. PRs are welcome, especially improvements in modularization, observability, and real-world examples.
+
+---
+
+## 📫 Stay in touch
+
+- Website: https://domusjs.com
+- Author: [Sergio Salcedo](https://github.com/vssalcedo)
+- X: [@vssalcedox](https://x.com/vssalcedox)
 
 ---
 

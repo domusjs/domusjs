@@ -18,7 +18,6 @@
       "@domusjs/infrastructure": ["packages/infrastructure/src"],
       "@domusjs/jobs": ["packages/jobs/src"],
       "@domusjs/observability": ["packages/observability/src"],
-      "@domusjs/rbac": ["packages/rbac/src"],
       "@domusjs/security": ["packages/security/src"]
     }
   }

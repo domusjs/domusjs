@@ -47,5 +47,4 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, _) => {
       message: 'Something went wrong',
     },
   });
-
 };
